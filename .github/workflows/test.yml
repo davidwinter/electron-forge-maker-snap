@@ -29,3 +29,10 @@ jobs:
     - run: yarn test_with_coverage
       env:
         SNAPCRAFT_BUILD_ENVIRONMENT: host
+    - name: Upload code coverage to Codecov
+      uses: codecov/codecov-action@v1
+      with:
+        file: ./coverage.lcov
+        env_vars: NODE_VERSION
+      env:
+        NODE_VERSION: ${{ matrix.node-version }}

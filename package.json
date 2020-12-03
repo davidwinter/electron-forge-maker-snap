@@ -29,7 +29,7 @@
 	"scripts": {
 		"lint": "xo",
 		"test": "xo && ava",
-		"test_with_coverage": "xo && nyc ava"
+		"test_with_coverage": "xo && nyc ava && nyc report --reporter=text-lcov > coverage.lcov"
 	},
 	"ava": {
 		"files": ["./*.test.js"],
