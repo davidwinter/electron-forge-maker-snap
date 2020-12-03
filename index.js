@@ -1,8 +1,10 @@
 const MakerBase = require('@electron-forge/maker-base').default;
+const SnapPackager = require('./snap-packager');
+const fs = require('fs');
 
 module.exports = class MakerSnap extends MakerBase {
-	// Name = 'MakerSnap';
-	// DefaultPlatforms = ['linux'];
+	name = 'snap';
+	defaultPlatforms = ['linux'];
 
 	constructor(configFetcher, providedPlatforms) {
 		super(configFetcher, providedPlatforms);
@@ -16,9 +18,18 @@ module.exports = class MakerSnap extends MakerBase {
 	}
 
 	async make(options) {
-		console.log(options);
-		console.log(this.config);
+		const pkg = new SnapPackager({
+			makeOptions: options,
+			makerOptions: this.config,
+			dependencies: {
+				fs,
+				process
+			}
+		});
 
-		throw new Error('Not yet implemented');
+		pkg.createSnapcraftFiles();
+		pkg.createSnapPackage();
+
+		return [`${pkg.values.executableName}_${pkg.values.version}_amd64.snap`];
 	}
 };
