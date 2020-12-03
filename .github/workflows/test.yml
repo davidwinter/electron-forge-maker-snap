@@ -26,6 +26,6 @@ jobs:
     - run: yarn install --frozen-lockfile
     - name: setup dummy app node deps
       run: cd test/fixtures/app && yarn install --frozen-lockfile
-    - run: yarn test_with_coverage --timeout=20m
+    - run: yarn test_with_coverage
       env:
         SNAPCRAFT_BUILD_ENVIRONMENT: host
