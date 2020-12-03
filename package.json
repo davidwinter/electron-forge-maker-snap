@@ -27,6 +27,7 @@
 	],
 	"files": [],
 	"scripts": {
+		"lint": "xo",
 		"test": "xo && ava",
 		"coverage": "nyc ava"
 	},
