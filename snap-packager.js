@@ -33,7 +33,7 @@ module.exports = class SnapCommand {
 	}
 
 	generateSnapcraftYAML() {
-		const doc = yaml.safeLoad(this.deps.fs.readFileSync('./snapcraft.template.yaml', 'utf8'));
+		const doc = yaml.safeLoad(this.deps.fs.readFileSync(path.join(__dirname, './snapcraft.template.yaml'), 'utf8'));
 
 		doc.name = this.values.executableName;
 		doc.version = this.values.version;
