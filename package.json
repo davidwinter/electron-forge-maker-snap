@@ -1,0 +1,45 @@
+{
+	"name": "@davidwinter/electron-forge-maker-snap",
+	"main": "index.js",
+	"version": "1.0.0",
+	"license": "MIT",
+	"author": {
+		"name": "David Winter",
+		"email": "i@djw.me",
+		"url": "https://davidwinter.dev"
+	},
+	"funding": "https://github.com/sponsors/davidwinter",
+	"bugs": {
+		"url": "https://github.com/davidwinter/electron-forge-maker-snap/issues"
+	},
+	"homepage": "https://github.com/davidwinter/electron-forge-maker-snap#readme",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/davidwinter/electron-forge-maker-snap.git"
+	},
+	"keywords": [
+		"electron",
+		"electron-forge",
+		"utility",
+		"utilities",
+		"linux",
+		"snap"
+	],
+	"files": [],
+	"scripts": {
+		"test": "xo && ava",
+		"coverage": "nyc ava"
+	},
+	"dependencies": {
+		"@electron-forge/maker-base": "^6.0.0-beta.54",
+		"fs-extra": "^9.0.1",
+		"ini": "^1.3.5",
+		"js-yaml": "^3.14.0"
+	},
+	"devDependencies": {
+		"ava": "^3.13.0",
+		"electron-packager": "^15.1.0",
+		"nyc": "^15.1.0",
+		"xo": "^0.35.0"
+	}
+}

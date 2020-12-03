@@ -1,0 +1,33 @@
+name: ''
+version: ''
+icon: ./build/icon.png
+summary: ''
+description: ''
+base: core18
+confinement: strict
+grade: stable
+
+apps:
+  SNAP-TEMPLATE: # Can we just rename this to 'app'
+    command: SNAP-TEMPLATE/SNAP-TEMPLATE --no-sandbox
+    extensions: [gnome-3-34]
+    plugs:
+      - browser-support
+      - desktop
+      - desktop-legacy
+      - gsettings
+      - home
+      - network
+      - unity7
+    environment:
+      TMPDIR: $XDG_RUNTIME_DIR
+
+parts:
+  SNAP-TEMPLATE: # Can we just rename this to 'app'
+    plugin: nil
+    source: ./app
+    override-build: |
+      cp -rv . $SNAPCRAFT_PART_INSTALL/SNAP-TEMPLATE
+    stage-packages:
+      - libnss3
+      - libnspr4
