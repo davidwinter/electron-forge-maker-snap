@@ -21,7 +21,7 @@ const makeOptions = {
 		// Description = description
 	},
 	targetArch: 'x64',
-	dir: './test/fixtures/out/nimble-notes-v3-linux-x64', // '/Users/davidwinter/projects/nimblenote/out/nimblenote-linux-x64',
+	dir: './test/artifacts/out/nimble-notes-v3-linux-x64', // '/Users/davidwinter/projects/nimblenote/out/nimblenote-linux-x64',
 	makeDir: './test/artifacts/make', // '/Users/davidwinter/projects/nimblenote/out/make',
 	targetPlatform: 'linux'
 };
@@ -35,6 +35,14 @@ const dependencies = {
 	process,
 	fs
 };
+
+test.beforeEach(() => {
+	fs.rmdirSync('./test/artifacts', {recursive: true});
+});
+
+test.afterEach(() => {
+	fs.rmdirSync('./test/artifacts', {recursive: true});
+});
 
 test('packager setup without overrides', t => {
 	const pkg = new SnapPackager({
@@ -100,34 +108,14 @@ test('generation of snapcraft.yaml', t => {
 	t.true(snapYaml.parts['SNAP-TEMPLATE'] === undefined);
 });
 
-test('creation of snapcraft files', t => {
-	const pkg = new SnapPackager({
-		makeOptions,
-		makerOptions,
-		dependencies
-	});
-
-	const destDir = path.join(makeOptions.makeDir, 'snapcraft', 'snap');
-
-	t.true(pkg.createSnapcraftFiles());
-
-	t.true(fs.existsSync(destDir));
-
-	t.is(fs.readFileSync(path.join(destDir, 'snapcraft.yaml'), 'utf8'),
-		pkg.generateSnapcraftYAML());
-
-	t.is(fs.readFileSync(path.join(destDir, 'gui', 'nimble-notes-v3.desktop'), 'utf8'),
-		pkg.generateDesktopFile());
-
-	t.true(fs.existsSync(path.join(destDir, 'gui', 'nimble-notes-v3.png')));
-});
-
-test('creation of snap package', async t => {
+test.serial('creation of snap package', async t => {
 	await packager({
 		dir: './test/fixtures/app',
-		out: './test/fixtures/out',
+		out: './test/artifacts/out',
 		name: 'nimble-notes-v3',
-		platform: 'linux'
+		platform: 'linux',
+		overwrite: true,
+		quiet: true
 	});
 
 	const pkg = new SnapPackager({
@@ -138,12 +126,20 @@ test('creation of snap package', async t => {
 
 	pkg.createSnapcraftFiles();
 
-	const destDir = path.join(makeOptions.makeDir, 'snapcraft', 'app');
+	const destDir = path.join(makeOptions.makeDir, 'snapcraft');
 
-	t.true(fs.existsSync(destDir));
+	t.is(fs.readFileSync(path.join(destDir, 'snap', 'snapcraft.yaml'), 'utf8'),
+		pkg.generateSnapcraftYAML());
+
+	t.is(fs.readFileSync(path.join(destDir, 'snap', 'gui', 'nimble-notes-v3.desktop'), 'utf8'),
+		pkg.generateDesktopFile());
+
+	t.true(fs.existsSync(path.join(destDir, 'snap', 'gui', 'nimble-notes-v3.png')));
+
+	t.true(fs.existsSync(path.join(destDir, 'app')));
 
 	pkg.createSnapPackage();
 
 	t.true(fs.existsSync(path.join(
-		makeOptions.makeDir, 'nimble-notes-v3_2.0.3_amd64.snap')));
+		makeOptions.makeDir, 'snapcraft', 'nimble-notes-v3_2.0.3_amd64.snap')));
 });
