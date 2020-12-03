@@ -3,13 +3,10 @@ const SnapPackager = require('./snap-packager');
 const fs = require('fs');
 
 module.exports = class MakerSnap extends MakerBase {
-	name = 'snap';
-	defaultPlatforms = ['linux'];
-
 	constructor(configFetcher, providedPlatforms) {
 		super(configFetcher, providedPlatforms);
 
-		this.name = 'MakerSnap';
+		this.name = 'snap';
 		this.defaultPlatforms = ['linux'];
 	}
 
