@@ -83,15 +83,20 @@ module.exports = class SnapCommand {
 	}
 
 	createSnapPackage() {
-		console.log('running snap within', path.join(this.options.makeOptions.makeDir, 'snapcraft'));
-
+		/**
+		 * Due to a [bug](https://bugs.launchpad.net/snapcraft/+bug/1906660) with snapcraft
+		 * need to disable stdio from the snapcraft call, as without TTY, throws a 120 status
+		 *
+		 * Ideally, when this bug is resolved, be good to capture any stderr output and
+		 * display to the user if there is a failure.
+		 */
 		const result = spawnSync('snapcraft', [], {
 			cwd: path.join(this.options.makeOptions.makeDir, 'snapcraft'),
-			stdio: 'inherit'
+			stdio: 'ignore'
 		});
 
 		if (result.status !== 0) {
-			throw new Error(result.stderr.toString());
+			throw new Error(result);
 		}
 	}
 
