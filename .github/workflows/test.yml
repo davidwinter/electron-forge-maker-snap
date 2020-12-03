@@ -24,4 +24,6 @@ jobs:
     - name: setup snapcraft
       run: sudo snap install snapcraft --classic
     - run: yarn install --frozen-lockfile
+    - name: setup dummy app node deps
+      run: cd test/app && yarn install --frozen-lockfile
     - run: yarn test_with_coverage
