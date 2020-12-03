@@ -29,7 +29,7 @@
 	"scripts": {
 		"lint": "xo",
 		"test": "xo && ava",
-		"coverage": "nyc ava"
+		"test_with_coverage": "xo && nyc ava"
 	},
 	"ava": {
 		"files": ["./*.test.js"],
