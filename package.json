@@ -17,6 +17,9 @@
 		"type": "git",
 		"url": "git+https://github.com/davidwinter/electron-forge-maker-snap.git"
 	},
+	"publishConfig": {
+		"access": "public"
+	},
 	"keywords": [
 		"electron",
 		"electron-forge",
