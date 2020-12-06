@@ -25,7 +25,12 @@
 		"linux",
 		"snap"
 	],
-	"files": ["index.js", "snap-packager.js", "snapcraft.template.yaml"],
+	"files": [
+		"index.js",
+		"snap-packager.js",
+		"snap-values.js",
+		"snapcraft.template.yaml"
+	],
 	"scripts": {
 		"lint": "xo",
 		"test": "xo && ava",
