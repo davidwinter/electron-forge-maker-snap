@@ -24,15 +24,6 @@ makers: [
 
 The maker will try and figure out a bunch of sensible defaults for your config, but these can be overridden with the following:
 
-### icon
-
-Type: `string`
-
-Default to either:
-
-- Value from `packagerConfig.icon` of your `electron-forge` config
--
-
 ### applicationName
 
 **Type:** `string`\
@@ -80,16 +71,20 @@ A license for the snap in the form of an SPDX expression for the license.
 
 **Example:** `MIT`
 
-### icon
+### icon
 
 **Type:** `string`\
 **Default:** Derived from `icon` within your `electron-forge` `packagerConfig`, appending a `.png` extension if required.
 
 The application icon used within the Snap Store and also with the Linux distribution desktop integration via the `.desktop` file - what appears in menus and docks.
 
+**Example:** `./build/icon.png`
+
 ### categories
 
 **Type:** `array` of `string`\
 **Default:** `[]`
 
-See: https://specifications.freedesktop.org/menu-spec/latest/apa.html#main-category-registry
+These categories define which menus the application belongs to on a Linux distribution. See: https://specifications.freedesktop.org/menu-spec/latest/apa.html#main-category-registry
+
+**Example:** `['Utility', 'Development']`
