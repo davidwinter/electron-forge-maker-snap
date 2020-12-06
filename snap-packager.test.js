@@ -108,38 +108,40 @@ test('generation of snapcraft.yaml', t => {
 	t.true(snapYaml.parts['SNAP-TEMPLATE'] === undefined);
 });
 
-test.serial('creation of snap package', async t => {
-	await packager({
-		dir: './test/fixtures/app',
-		out: './test/artifacts/out',
-		name: 'nimble-notes-v3',
-		platform: 'linux',
-		overwrite: true,
-		quiet: true
+if (!process.env.FAST_TESTS) {
+	test.serial('creation of snap package', async t => {
+		await packager({
+			dir: './test/fixtures/app',
+			out: './test/artifacts/out',
+			name: 'nimble-notes-v3',
+			platform: 'linux',
+			overwrite: true,
+			quiet: true
+		});
+
+		const pkg = new SnapPackager({
+			makeOptions,
+			makerOptions,
+			dependencies
+		});
+
+		pkg.createSnapcraftFiles();
+
+		const destDir = path.join(makeOptions.makeDir, 'snapcraft');
+
+		t.is(fs.readFileSync(path.join(destDir, 'snap', 'snapcraft.yaml'), 'utf8'),
+			pkg.generateSnapcraftYAML());
+
+		t.is(fs.readFileSync(path.join(destDir, 'snap', 'gui', 'nimble-notes-v3.desktop'), 'utf8'),
+			pkg.generateDesktopFile());
+
+		t.true(fs.existsSync(path.join(destDir, 'snap', 'gui', 'nimble-notes-v3.png')));
+
+		t.true(fs.existsSync(path.join(destDir, 'app')));
+
+		pkg.createSnapPackage();
+
+		t.true(fs.existsSync(path.join(
+			makeOptions.makeDir, 'snapcraft', 'nimble-notes-v3_2.0.3_amd64.snap')));
 	});
-
-	const pkg = new SnapPackager({
-		makeOptions,
-		makerOptions,
-		dependencies
-	});
-
-	pkg.createSnapcraftFiles();
-
-	const destDir = path.join(makeOptions.makeDir, 'snapcraft');
-
-	t.is(fs.readFileSync(path.join(destDir, 'snap', 'snapcraft.yaml'), 'utf8'),
-		pkg.generateSnapcraftYAML());
-
-	t.is(fs.readFileSync(path.join(destDir, 'snap', 'gui', 'nimble-notes-v3.desktop'), 'utf8'),
-		pkg.generateDesktopFile());
-
-	t.true(fs.existsSync(path.join(destDir, 'snap', 'gui', 'nimble-notes-v3.png')));
-
-	t.true(fs.existsSync(path.join(destDir, 'app')));
-
-	pkg.createSnapPackage();
-
-	t.true(fs.existsSync(path.join(
-		makeOptions.makeDir, 'snapcraft', 'nimble-notes-v3_2.0.3_amd64.snap')));
-});
+}

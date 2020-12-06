@@ -29,6 +29,7 @@
 	"scripts": {
 		"lint": "xo",
 		"test": "xo && ava",
+		"fast_tests": "xo && FAST_TESTS=1 ava",
 		"test_with_coverage": "xo && nyc ava && nyc report --reporter=text-lcov > coverage.lcov"
 	},
 	"ava": {
