@@ -1,7 +1,7 @@
 {
 	"name": "@davidwinter/electron-forge-maker-snap",
 	"main": "index.js",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"license": "MIT",
 	"author": {
 		"name": "David Winter",
@@ -41,7 +41,9 @@
 		"test_with_coverage": "xo && nyc ava && nyc report --reporter=text-lcov > coverage.lcov"
 	},
 	"ava": {
-		"files": ["./*.test.js"],
+		"files": [
+			"./*.test.js"
+		],
 		"timeout": "10m",
 		"failFast": true
 	},
