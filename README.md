@@ -1,23 +1,41 @@
-# electron-forge-maker-snap
+# @davidwinter/electron-forge-maker-snap [![test](https://github.com/davidwinter/electron-forge-maker-snap/workflows/test/badge.svg)](https://github.com/davidwinter/electron-forge-maker-snap/actions?query=workflow%3Atest)
 
-> Simple snap packaging that works
+> Simple snap packaging for `electron-forge` that just works
+
+## Prerequisites
+
+- `snapcraft` [installed](https://snapcraft.io/docs/installing-snapcraft)
+
+## Installation
+
+```
+npm install @davidwinter/electron-forge-maker-snap --dev
+```
+
+or
+
+```
+yarn install @davidwinter/electron-forge-maker-snap --dev
+```
 
 ## Usage
 
-Within your forge config, add:
+Within your `electron-forge` config, add:
 
 ```js
 makers: [
 	...
 	, {
-		name: 'electron-forge-maker-snap',
-		config: {
-			icon: './build/icon.png',
-			categories: ['Utility']
-		}
+		name: '@davidwinter/electron-forge-maker-snap'
 	},
 	...
 ]
+```
+
+Then make your snap package:
+
+```
+electron-forge make --target="@davidwinter/electron-forge-maker-snap"
 ```
 
 ## Configuration
