@@ -8,7 +8,7 @@ confinement: strict
 grade: stable
 
 apps:
-  SNAP-TEMPLATE: # Can we just rename this to 'app'
+  SNAP-TEMPLATE:
     command: SNAP-TEMPLATE/SNAP-TEMPLATE --no-sandbox
     extensions: [gnome-3-34]
     plugs:
@@ -23,7 +23,7 @@ apps:
       TMPDIR: $XDG_RUNTIME_DIR
 
 parts:
-  SNAP-TEMPLATE: # Can we just rename this to 'app'
+  app:
     plugin: nil
     source: ./app
     override-build: |

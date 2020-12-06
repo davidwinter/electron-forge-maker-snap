@@ -97,7 +97,7 @@ test('generation of snapcraft.yaml', t => {
 			}
 		},
 		parts: {
-			'nimble-notes-v3': {
+			app: {
 				source: './app',
 				'override-build': 'cp -rv . $SNAPCRAFT_PART_INSTALL/nimble-notes-v3'
 			}
@@ -105,7 +105,6 @@ test('generation of snapcraft.yaml', t => {
 	});
 
 	t.true(snapYaml.apps['SNAP-TEMPLATE'] === undefined);
-	t.true(snapYaml.parts['SNAP-TEMPLATE'] === undefined);
 });
 
 if (!process.env.FAST_TESTS) {

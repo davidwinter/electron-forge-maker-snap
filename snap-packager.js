@@ -42,9 +42,7 @@ module.exports = class SnapCommand {
 		delete doc.apps['SNAP-TEMPLATE'];
 		doc.apps[this.values.executableName].command = `${this.values.executableName}/${this.values.executableName} --no-sandbox`;
 
-		doc.parts[this.values.executableName] = doc.parts['SNAP-TEMPLATE'];
-		delete doc.parts['SNAP-TEMPLATE'];
-		doc.parts[this.values.executableName]['override-build'] = `cp -rv . $SNAPCRAFT_PART_INSTALL/${this.values.executableName}`;
+		doc.parts.app['override-build'] = `cp -rv . $SNAPCRAFT_PART_INSTALL/${this.values.executableName}`;
 
 		return yaml.safeDump(doc);
 	}
@@ -93,7 +91,7 @@ module.exports = class SnapCommand {
 		});
 
 		if (result.status !== 0) {
-			throw new Error(result);
+			throw new Error(result.status);
 		}
 	}
 };
