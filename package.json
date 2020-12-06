@@ -39,7 +39,7 @@
 	},
 	"ava": {
 		"files": ["./*.test.js"],
-		"timeout": "5m",
+		"timeout": "10m",
 		"failFast": true
 	},
 	"dependencies": {
