@@ -1,0 +1,69 @@
+const path = require('path');
+
+module.exports = class SnapValues {
+	constructor(options) {
+		this.makeOptions = options.makeOptions;
+		this.makerOptions = options.makerOptions;
+
+		this.values = {};
+	}
+
+	get applicationName() {
+		this.values.applicationName = this.makerOptions.applicationName || this.makeOptions.appName;
+
+		if (this.values.applicationName.length > 40) {
+			throw new Error(`applicationName must be 40 characters or less: ${this.values.applicationName}`);
+		}
+
+		return this.values.applicationName;
+	}
+
+	get executableName() {
+		return this._sanatizeExecutableName(this.makerOptions.executableName || this.makeOptions.appName);
+	}
+
+	get version() {
+		return this.makeOptions.packageJSON.version;
+	}
+
+	get summary() {
+		this.values.summary = this.makerOptions.summary || this.makeOptions.packageJSON.description;
+
+		if (this.values.summary.length > 78) {
+			throw new Error('summary must be 78 characters or less');
+		}
+
+		return this.values.summary;
+	}
+
+	get description() {
+		return this.makerOptions.description || this.makeOptions.packageJSON.description;
+	}
+
+	get license() {
+		return this.makerOptions.license || this.makeOptions.packageJSON.license;
+	}
+
+	get icon() {
+		this.values.icon = this.makerOptions.icon || this.makeOptions.forgeConfig.packagerConfig.icon;
+
+		if (/\.png$/.test(this.values.icon) === false) {
+			this.values.icon += '.png';
+		}
+
+		if (path.isAbsolute(this.values.icon) === false) {
+			this.values.icon = path.join(process.cwd(), this.values.icon);
+		}
+
+		return this.values.icon;
+	}
+
+	get categories() {
+		return this.makerOptions.categories || [];
+	}
+
+	_sanatizeExecutableName(name) {
+		const execName = name.toLowerCase().replace(/ /g, '-');
+		return execName.replace(/[^a-z\d\\-]/g, '');
+	}
+};

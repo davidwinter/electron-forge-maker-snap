@@ -4,20 +4,17 @@ const yaml = require('js-yaml');
 const fse = require('fs-extra');
 const {spawnSync} = require('child_process');
 
+const SnapValues = require('./snap-values');
+
 module.exports = class SnapCommand {
 	constructor(options) {
 		this.options = options;
 		this.deps = options.dependencies;
 
-		this.values = {
-			applicationName: options.makeOptions.appName,
-			version: options.makeOptions.packageJSON.version,
-			executableName: this._sanatizeExecutableName(options.makeOptions.appName),
-			icon: this._getIconPath(),
-			summary: options.makeOptions.packageJSON.description,
-			description: options.makeOptions.packageJSON.description,
-			categories: this._getCategories()
-		};
+		this.values = new SnapValues({
+			makeOptions: this.options.makeOptions,
+			makerOptions: this.options.makerOptions
+		});
 	}
 
 	generateDesktopFile() {
@@ -98,20 +95,5 @@ module.exports = class SnapCommand {
 		if (result.status !== 0) {
 			throw new Error(result);
 		}
-	}
-
-	_sanatizeExecutableName(name) {
-		const execName = name.toLowerCase().replace(/ /g, '-');
-		return execName.replace(/[^a-z\d\\-]/g, '');
-	}
-
-	_getIconPath() {
-		return path.join(
-			this.deps.process.cwd(),
-			`${this.options.makeOptions.forgeConfig.packagerConfig.icon}.png`);
-	}
-
-	_getCategories() {
-		return [];
 	}
 };
