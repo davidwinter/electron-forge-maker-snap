@@ -38,6 +38,12 @@ Then make your snap package:
 electron-forge make --target="@davidwinter/electron-forge-maker-snap"
 ```
 
+Run with `DEBUG='snap-packager'` for debug output from `snapcraft`:
+
+```
+DEBUG='snap-packager' electron-forge make --target="@davidwinter/electron-forge-maker-snap"
+```
+
 ## Configuration
 
 The maker will try and figure out a bunch of sensible defaults for your config, but these can be overridden with the following:
