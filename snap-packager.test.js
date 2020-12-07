@@ -27,7 +27,12 @@ const makeOptions = {
 };
 
 const makerOptions = {
-	stagePackages: ['default', 'libpcre3']
+	stagePackages: ['default', 'libpcre3'],
+	layout: {
+		'/usr/lib/x86_64-linux-gnu/imlib2': {
+			bind: '$SNAP/meta/gui/nimble-notes-v3.png'
+		}
+	}
 	// Icon = icon: './build/icon.png',
 	// Categories = categories: ['Utility']
 };
@@ -106,6 +111,11 @@ test('generation of snapcraft.yaml', t => {
 					'libnss3',
 					'libnspr4'
 				]
+			}
+		},
+		layout: {
+			'/usr/lib/x86_64-linux-gnu/imlib2': {
+				bind: '$SNAP/meta/gui/nimble-notes-v3.png'
 			}
 		}
 	});

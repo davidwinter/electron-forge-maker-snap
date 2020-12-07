@@ -190,3 +190,16 @@ test('stagePackages can be overridden and include defaults', t => {
 	t.deepEqual(values.stagePackages.sort,
 		['testPackage1', 'testPackage2', 'libnss3', 'libnspr4'].sort);
 });
+
+test('layout values can be added', t => {
+	const makerOptions = {
+		layout: {
+			'/usr/lib/x86_64-linux-gnu/imlib2': {
+				bind: '$SNAP/usr/lib/x86_64-linux-gnu/imlib2'
+			}
+		}
+	};
+	const values = new SnapValues({makeOptions, makerOptions});
+
+	t.like(values.layout, makerOptions.layout);
+});
