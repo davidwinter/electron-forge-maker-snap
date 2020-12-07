@@ -72,6 +72,10 @@ class SnapValues {
 		return this.values.stagePackages;
 	}
 
+	get layout() {
+		return this.makerOptions.layout;
+	}
+
 	_sanatizeExecutableName(name) {
 		const execName = name.toLowerCase().replace(/ /g, '-');
 		return execName.replace(/[^a-z\d\\-]/g, '');
