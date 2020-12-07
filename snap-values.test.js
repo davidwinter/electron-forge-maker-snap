@@ -164,3 +164,29 @@ test('categories can be set', t => {
 
 	t.deepEqual(values.categories, makerOptions.categories);
 });
+
+test('stagePackages has defaults', t => {
+	const makerOptions = {};
+	const values = new SnapValues({makeOptions, makerOptions});
+
+	t.deepEqual(values.stagePackages, ['libnss3', 'libnspr4']);
+});
+
+test('stagePackages can be replaced', t => {
+	const makerOptions = {
+		stagePackages: ['testPackage1', 'testPackage2']
+	};
+	const values = new SnapValues({makeOptions, makerOptions});
+
+	t.deepEqual(values.stagePackages, ['testPackage1', 'testPackage2']);
+});
+
+test('stagePackages can be overridden and include defaults', t => {
+	const makerOptions = {
+		stagePackages: ['testPackage1', 'testPackage2', 'default']
+	};
+	const values = new SnapValues({makeOptions, makerOptions});
+
+	t.deepEqual(values.stagePackages.sort,
+		['testPackage1', 'testPackage2', 'libnss3', 'libnspr4'].sort);
+});

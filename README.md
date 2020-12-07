@@ -106,3 +106,10 @@ The application icon used within the Snap Store and also with the Linux distribu
 These categories define which menus the application belongs to on a Linux distribution. See: https://specifications.freedesktop.org/menu-spec/latest/apa.html#main-category-registry
 
 **Example:** `['Utility', 'Development']`
+
+### stagePackages
+
+**Type:** `array` of `string`\
+**Default:** `['libnss3', 'libnspr4']`
+
+List of additional packages required to support creationg of the app. If you want to add packages in addition to the default, add an item named `default`, for example: `['default', 'libxfixes3']`.

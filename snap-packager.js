@@ -43,6 +43,7 @@ module.exports = class SnapCommand {
 		doc.apps[this.values.executableName].command = `${this.values.executableName}/${this.values.executableName} --no-sandbox`;
 
 		doc.parts.app['override-build'] = `cp -rv . $SNAPCRAFT_PART_INSTALL/${this.values.executableName}`;
+		doc.parts.app['stage-packages'] = this.values.stagePackages;
 
 		return yaml.safeDump(doc);
 	}
