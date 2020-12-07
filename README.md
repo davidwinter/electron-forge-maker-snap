@@ -46,7 +46,20 @@ DEBUG='snap-packager' electron-forge make --target="@davidwinter/electron-forge-
 
 ## Configuration
 
-The maker will try and figure out a bunch of sensible defaults for your config, but these can be overridden with the following:
+The maker will try and figure out a bunch of sensible defaults for your config, but the following values can be overridden. For example, to add `categories`:
+
+```js
+makers: [
+	...
+	, {
+		name: '@davidwinter/electron-forge-maker-snap',
+		config: {
+			categories: ['Utility', 'Development']
+		}
+	},
+	...
+]
+```
 
 ### applicationName
 
@@ -119,3 +132,9 @@ These categories define which menus the application belongs to on a Linux distri
 **Default:** `['libnss3', 'libnspr4']`
 
 List of additional packages required to support creationg of the app. If you want to add packages in addition to the default, add an item named `default`, for example: `['default', 'libxfixes3']`.
+
+### layout
+
+**Type:** `object`
+
+See [Snap layouts](https://snapcraft.io/docs/snap-layouts). Define in the same format described on that page.
