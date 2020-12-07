@@ -2,7 +2,8 @@ const path = require('path');
 const ini = require('ini');
 const yaml = require('js-yaml');
 const fse = require('fs-extra');
-const {spawnSync} = require('child_process');
+const debug = require('debug')('snap-packager');
+const {spawn} = require('child_process');
 
 const SnapValues = require('./snap-values');
 
@@ -77,21 +78,38 @@ module.exports = class SnapCommand {
 		return true;
 	}
 
-	createSnapPackage() {
-		/**
-		 * Due to a [bug](https://bugs.launchpad.net/snapcraft/+bug/1906660) with snapcraft
-		 * need to disable stdio from the snapcraft call, as without TTY, throws a 120 status
-		 *
-		 * Ideally, when this bug is resolved, be good to capture any stderr output and
-		 * display to the user if there is a failure.
-		 */
-		const result = spawnSync('snapcraft', [], {
-			cwd: path.join(this.options.makeOptions.makeDir, 'snapcraft'),
-			stdio: 'ignore'
-		});
+	async createSnapPackage() {
+		let result = null;
 
-		if (result.status !== 0) {
-			throw new Error(result.status);
+		try {
+			result = await new Promise((resolve, reject) => {
+				const snapcraft = spawn('snapcraft', [], {
+					cwd: path.join(this.options.makeOptions.makeDir, 'snapcraft')
+				});
+
+				snapcraft.on('close', code => {
+					if (code === 0) {
+						resolve(code);
+						return;
+					}
+
+					reject(code);
+				});
+
+				snapcraft.on('error', error => {
+					reject(error);
+				});
+
+				snapcraft.stdout.on('data', data => {
+					debug(data.toString());
+				});
+			});
+		} catch (error) {
+			throw new Error(error);
 		}
+
+		debug(`snapcraft finished with status code: ${result}`);
+
+		return result === 0;
 	}
 };
