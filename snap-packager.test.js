@@ -144,7 +144,7 @@ if (!process.env.FAST_TESTS) {
 
 		t.true(fs.existsSync(path.join(destDir, 'app')));
 
-		pkg.createSnapPackage();
+		t.true(await pkg.createSnapPackage());
 
 		t.true(fs.existsSync(path.join(
 			makeOptions.makeDir, 'snapcraft', 'nimble-notes-v3_2.0.3_amd64.snap')));
