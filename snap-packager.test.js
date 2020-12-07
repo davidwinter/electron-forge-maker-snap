@@ -27,6 +27,7 @@ const makeOptions = {
 };
 
 const makerOptions = {
+	stagePackages: ['default', 'libpcre3']
 	// Icon = icon: './build/icon.png',
 	// Categories = categories: ['Utility']
 };
@@ -99,7 +100,12 @@ test('generation of snapcraft.yaml', t => {
 		parts: {
 			app: {
 				source: './app',
-				'override-build': 'cp -rv . $SNAPCRAFT_PART_INSTALL/nimble-notes-v3'
+				'override-build': 'cp -rv . $SNAPCRAFT_PART_INSTALL/nimble-notes-v3',
+				'stage-packages': [
+					'libpcre3',
+					'libnss3',
+					'libnspr4'
+				]
 			}
 		}
 	});

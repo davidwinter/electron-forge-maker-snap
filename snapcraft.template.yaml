@@ -28,6 +28,4 @@ parts:
     source: ./app
     override-build: |
       cp -rv . $SNAPCRAFT_PART_INSTALL/SNAP-TEMPLATE
-    stage-packages:
-      - libnss3
-      - libnspr4
+    stage-packages: []

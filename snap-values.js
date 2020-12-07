@@ -1,6 +1,6 @@
 const path = require('path');
 
-module.exports = class SnapValues {
+class SnapValues {
 	constructor(options) {
 		this.makeOptions = options.makeOptions;
 		this.makerOptions = options.makerOptions;
@@ -62,8 +62,22 @@ module.exports = class SnapValues {
 		return this.makerOptions.categories || [];
 	}
 
+	get stagePackages() {
+		this.values.stagePackages = this.makerOptions.stagePackages || SnapValues.defaultStagePackages;
+
+		if (this.values.stagePackages.includes('default')) {
+			this.values.stagePackages = this.values.stagePackages.filter(i => i !== 'default').concat(SnapValues.defaultStagePackages);
+		}
+
+		return this.values.stagePackages;
+	}
+
 	_sanatizeExecutableName(name) {
 		const execName = name.toLowerCase().replace(/ /g, '-');
 		return execName.replace(/[^a-z\d\\-]/g, '');
 	}
-};
+}
+
+SnapValues.defaultStagePackages = ['libnss3', 'libnspr4'];
+
+module.exports = SnapValues;
