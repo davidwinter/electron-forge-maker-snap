@@ -1,6 +1,7 @@
 const MakerBase = require('@electron-forge/maker-base').default;
 const SnapPackager = require('./snap-packager');
-const fs = require('fs');
+const fse = require('fs-extra');
+const {spawn} = require('child_process');
 
 module.exports = class MakerSnap extends MakerBase {
 	constructor(configFetcher, providedPlatforms) {
@@ -19,8 +20,9 @@ module.exports = class MakerSnap extends MakerBase {
 			makeOptions: options,
 			makerOptions: this.config,
 			dependencies: {
-				fs,
-				process
+				fse,
+				process,
+				spawn
 			}
 		});
 

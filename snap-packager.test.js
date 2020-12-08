@@ -1,6 +1,7 @@
 const test = require('ava');
 const yaml = require('js-yaml');
-const fs = require('fs');
+const fse = require('fs-extra');
+const {spawn} = require('child_process');
 const path = require('path');
 const packager = require('electron-packager');
 
@@ -40,15 +41,16 @@ const makerOptions = {
 
 const dependencies = {
 	process,
-	fs
+	fse,
+	spawn
 };
 
 test.beforeEach(() => {
-	fs.rmdirSync('./test/artifacts', {recursive: true});
+	fse.rmdirSync('./test/artifacts', {recursive: true});
 });
 
 test.afterEach(() => {
-	fs.rmdirSync('./test/artifacts', {recursive: true});
+	fse.rmdirSync('./test/artifacts', {recursive: true});
 });
 
 test('packager setup without overrides', t => {
@@ -147,19 +149,19 @@ if (!process.env.FAST_TESTS) {
 
 		const destDir = path.join(makeOptions.makeDir, 'snapcraft');
 
-		t.is(fs.readFileSync(path.join(destDir, 'snap', 'snapcraft.yaml'), 'utf8'),
+		t.is(fse.readFileSync(path.join(destDir, 'snap', 'snapcraft.yaml'), 'utf8'),
 			pkg.generateSnapcraftYAML());
 
-		t.is(fs.readFileSync(path.join(destDir, 'snap', 'gui', 'nimble-notes-v3.desktop'), 'utf8'),
+		t.is(fse.readFileSync(path.join(destDir, 'snap', 'gui', 'nimble-notes-v3.desktop'), 'utf8'),
 			pkg.generateDesktopFile());
 
-		t.true(fs.existsSync(path.join(destDir, 'snap', 'gui', 'nimble-notes-v3.png')));
+		t.true(fse.existsSync(path.join(destDir, 'snap', 'gui', 'nimble-notes-v3.png')));
 
-		t.true(fs.existsSync(path.join(destDir, 'app')));
+		t.true(fse.existsSync(path.join(destDir, 'app')));
 
 		t.true(await pkg.createSnapPackage());
 
-		t.true(fs.existsSync(path.join(
+		t.true(fse.existsSync(path.join(
 			makeOptions.makeDir, 'snapcraft', 'nimble-notes-v3_2.0.3_amd64.snap')));
 	});
 }

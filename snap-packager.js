@@ -1,9 +1,7 @@
 const path = require('path');
 const ini = require('ini');
 const yaml = require('js-yaml');
-const fse = require('fs-extra');
 const debug = require('debug')('snap-packager');
-const {spawn} = require('child_process');
 
 const SnapValues = require('./snap-values');
 
@@ -31,7 +29,7 @@ module.exports = class SnapCommand {
 	}
 
 	generateSnapcraftYAML() {
-		const doc = yaml.safeLoad(this.deps.fs.readFileSync(path.join(__dirname, './snapcraft.template.yaml'), 'utf8'));
+		const doc = yaml.safeLoad(this.deps.fse.readFileSync(path.join(__dirname, './snapcraft.template.yaml'), 'utf8'));
 
 		doc.name = this.values.executableName;
 		doc.title = this.values.applicationName;
@@ -61,27 +59,27 @@ module.exports = class SnapCommand {
 	createSnapcraftFiles() {
 		const destDir = path.join(this.options.makeOptions.makeDir, 'snapcraft', 'snap');
 
-		if (this.deps.fs.existsSync(destDir)) {
-			this.deps.fs.rmdirSync(destDir, {recursive: true});
+		if (this.deps.fse.existsSync(destDir)) {
+			this.deps.fse.rmdirSync(destDir, {recursive: true});
 		}
 
-		this.deps.fs.mkdirSync(path.join(destDir, 'gui'), {recursive: true});
+		this.deps.fse.mkdirSync(path.join(destDir, 'gui'), {recursive: true});
 
-		this.deps.fs.writeFileSync(
+		this.deps.fse.writeFileSync(
 			path.join(destDir, 'snapcraft.yaml'),
 			this.generateSnapcraftYAML(),
 			'utf8');
 
-		this.deps.fs.writeFileSync(
+		this.deps.fse.writeFileSync(
 			path.join(destDir, 'gui', `${this.values.executableName}.desktop`),
 			this.generateDesktopFile(),
 			'utf8');
 
-		this.deps.fs.copyFileSync(
+		this.deps.fse.copyFileSync(
 			this.values.icon,
 			path.join(destDir, 'gui', `${this.values.executableName}.png`));
 
-		fse.copySync(
+		this.deps.fse.copySync(
 			this.options.makeOptions.dir,
 			path.join(destDir, '..', 'app'));
 
@@ -93,7 +91,7 @@ module.exports = class SnapCommand {
 
 		try {
 			result = await new Promise((resolve, reject) => {
-				const snapcraft = spawn('snapcraft', [], {
+				const snapcraft = this.deps.spawn('snapcraft', [], {
 					cwd: path.join(this.options.makeOptions.makeDir, 'snapcraft')
 				});
 
