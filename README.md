@@ -15,7 +15,7 @@ npm install @davidwinter/electron-forge-maker-snap --dev
 or
 
 ```
-yarn install @davidwinter/electron-forge-maker-snap --dev
+yarn add @davidwinter/electron-forge-maker-snap --dev
 ```
 
 ## Usage
