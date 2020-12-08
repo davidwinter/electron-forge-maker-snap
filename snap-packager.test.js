@@ -15,7 +15,8 @@ const makeOptions = {
 	},
 	packageJSON: {
 		version: '2.0.3',
-		description: 'Simple note taking'
+		description: 'Simple note taking',
+		license: 'MIT'
 		// Name = name
 		// Product name = productName
 		// Description = description
@@ -93,10 +94,12 @@ test('generation of snapcraft.yaml', t => {
 
 	t.like(snapYaml, {
 		name: 'nimble-notes-v3',
+		title: 'Nimble Notes v3!',
 		version: '2.0.3',
 		icon: './snap/gui/nimble-notes-v3.png',
 		summary: 'Simple note taking',
 		description: 'Simple note taking',
+		license: 'MIT',
 		apps: {
 			'nimble-notes-v3': {
 				command: 'nimble-notes-v3/nimble-notes-v3 --no-sandbox'

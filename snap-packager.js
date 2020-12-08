@@ -34,10 +34,15 @@ module.exports = class SnapCommand {
 		const doc = yaml.safeLoad(this.deps.fs.readFileSync(path.join(__dirname, './snapcraft.template.yaml'), 'utf8'));
 
 		doc.name = this.values.executableName;
+		doc.title = this.values.applicationName;
 		doc.version = this.values.version;
 		doc.icon = `./snap/gui/${this.values.executableName}.png`;
 		doc.summary = this.values.summary;
 		doc.description = this.values.description;
+
+		if (this.values.license) {
+			doc.license = this.values.license;
+		}
 
 		doc.apps[this.values.executableName] = doc.apps['SNAP-TEMPLATE'];
 		delete doc.apps['SNAP-TEMPLATE'];
