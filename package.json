@@ -35,10 +35,22 @@
 		"snapcraft.template.yaml"
 	],
 	"scripts": {
+		"cm": "git-cz",
 		"lint": "xo",
 		"test": "xo && ava",
 		"fast_tests": "xo && FAST_TESTS=1 ava",
 		"test_with_coverage": "xo && nyc ava && nyc report --reporter=text-lcov > coverage.lcov"
+	},
+	"config": {
+		"commitizen": {
+			"path": "cz-conventional-changelog"
+		}
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "yarn fast_tests",
+			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+		}
 	},
 	"ava": {
 		"files": [
@@ -55,8 +67,13 @@
 		"js-yaml": "^3.14.0"
 	},
 	"devDependencies": {
+		"@commitlint/cli": "^11.0.0",
+		"@commitlint/config-conventional": "^11.0.0",
 		"ava": "^3.13.0",
+		"commitizen": "^4.2.2",
+		"cz-conventional-changelog": "^3.3.0",
 		"electron-packager": "^15.1.0",
+		"husky": "^4.3.5",
 		"nyc": "^15.1.0",
 		"xo": "^0.35.0"
 	}
