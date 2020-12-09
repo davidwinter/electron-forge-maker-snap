@@ -1,7 +1,7 @@
 const path = require('path');
 const ini = require('ini');
 const yaml = require('js-yaml');
-const debug = require('debug')('electron-forge-maker-snap:snap-packager');
+const debug = require('debug')('forge-maker-snap:snap-packager');
 
 const SnapValues = require('./snap-values');
 

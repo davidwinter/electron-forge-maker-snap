@@ -3,7 +3,7 @@ const SnapPackager = require('./snap-packager');
 const fse = require('fs-extra');
 const path = require('path');
 const {spawn} = require('child_process');
-const debug = require('debug')('electron-forge-maker-snap:maker-snap');
+const debug = require('debug')('forge-maker-snap:maker-snap');
 
 module.exports = class MakerSnap extends MakerBase {
 	constructor(configFetcher, providedPlatforms) {
