@@ -1,7 +1,7 @@
 {
 	"name": "@davidwinter/electron-forge-maker-snap",
 	"main": "index.js",
-	"version": "0.4.1",
+	"version": "0.5.0",
 	"license": "MIT",
 	"author": {
 		"name": "David Winter",
