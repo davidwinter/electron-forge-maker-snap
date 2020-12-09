@@ -5,6 +5,8 @@ const path = require('path');
 const {spawn} = require('child_process');
 const debug = require('debug')('forge-maker-snap:maker-snap');
 
+debug.log = console.log.bind(console);
+
 module.exports = class MakerSnap extends MakerBase {
 	constructor(configFetcher, providedPlatforms) {
 		super(configFetcher, providedPlatforms);

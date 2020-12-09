@@ -5,6 +5,8 @@ const debug = require('debug')('forge-maker-snap:snap-packager');
 
 const SnapValues = require('./snap-values');
 
+debug.log = console.log.bind(console);
+
 module.exports = class SnapPackager {
 	constructor(options) {
 		this.options = options;
