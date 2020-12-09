@@ -1,4 +1,5 @@
 const path = require('path');
+const LinuxApp = require('electron-packager/src/linux').App;
 
 class SnapValues {
 	constructor(options) {
@@ -20,6 +21,14 @@ class SnapValues {
 
 	get executableName() {
 		return this._sanatizeExecutableName(this.makerOptions.executableName || this.makeOptions.appName);
+	}
+
+	get packagedExecutableName() {
+		const linuxApp = new LinuxApp({
+			name: this.makeOptions.appName
+		});
+
+		return linuxApp.newElectronName;
 	}
 
 	get version() {

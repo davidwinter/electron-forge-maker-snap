@@ -67,6 +67,14 @@ test('executableName can be overriden with make options', t => {
 	t.is(values.executableName, 'nimblenote');
 });
 
+test('packagedExecutableName is calculated from electron-packager', t => {
+	const makerOptions = {};
+
+	const values = new SnapValues({makeOptions, makerOptions});
+
+	t.is(values.packagedExecutableName, 'Nimble Notes v3!');
+});
+
 test('version will be derived from package.json', t => {
 	const makerOptions = {};
 	const values = new SnapValues({makeOptions, makerOptions});
