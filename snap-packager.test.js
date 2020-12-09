@@ -162,6 +162,6 @@ if (!process.env.FAST_TESTS) {
 		t.true(await pkg.createSnapPackage());
 
 		t.true(fse.existsSync(path.join(
-			makeOptions.makeDir, 'snapcraft', 'nimble-notes-v3_2.0.3_amd64.snap')));
+			makeOptions.makeDir, 'nimble-notes-v3-2.0.3.snap')));
 	});
 }
