@@ -40,7 +40,7 @@ electron-forge make --target="@davidwinter/electron-forge-maker-snap"
 
 Once completed, the snap package will be located at: `out/make` with a filename like `{executable}-{version}.snap`, for example, `nimblenote-2.0.3.snap`
 
-Run with `DEBUG='snap-packager'` for debug output from `snapcraft`:
+Run with `DEBUG='forge-maker-snap:*'` for debug output from `snapcraft`:
 
 ```
 DEBUG='forge-maker-snap:*' electron-forge make --target="@davidwinter/electron-forge-maker-snap"
