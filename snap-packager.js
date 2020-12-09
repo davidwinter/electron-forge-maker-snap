@@ -87,6 +87,9 @@ module.exports = class SnapPackager {
 		this.deps.fse.copySync(this.options.makeOptions.dir, appFiles);
 		debug(`App files copied to: ${appFiles}`);
 
+		this.deps.fse.renameSync(path.join(appFiles, this.values.packagedExecutableName), path.join(appFiles, this.values.executableName));
+		debug(`Rename '${this.values.packagedExecutableName} to ${this.values.executableName} in: ${appFiles}`);
+
 		return true;
 	}
 

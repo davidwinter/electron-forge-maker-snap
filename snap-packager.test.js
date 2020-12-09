@@ -23,7 +23,7 @@ const makeOptions = {
 		// Description = description
 	},
 	targetArch: 'x64',
-	dir: './test/artifacts/out/nimble-notes-v3-linux-x64', // '/Users/davidwinter/projects/nimblenote/out/nimblenote-linux-x64',
+	dir: './test/artifacts/out/Nimble Notes v3!-linux-x64', // '/Users/davidwinter/projects/nimblenote/out/nimblenote-linux-x64',
 	makeDir: './test/artifacts/make', // '/Users/davidwinter/projects/nimblenote/out/make',
 	targetPlatform: 'linux'
 };
@@ -63,6 +63,7 @@ test('packager setup without overrides', t => {
 	t.is(pkg.values.applicationName, 'Nimble Notes v3!');
 	t.is(pkg.values.version, '2.0.3');
 	t.is(pkg.values.executableName, 'nimble-notes-v3');
+	t.is(pkg.values.packagedExecutableName, 'Nimble Notes v3!');
 	t.is(pkg.values.icon, path.join(process.cwd(), 'test/fixtures/icon.png'));
 	t.is(pkg.values.summary, 'Simple note taking');
 	t.is(pkg.values.description, 'Simple note taking');
@@ -133,7 +134,7 @@ if (!process.env.FAST_TESTS) {
 		await packager({
 			dir: './test/fixtures/app',
 			out: './test/artifacts/out',
-			name: 'nimble-notes-v3',
+			name: 'Nimble Notes v3!',
 			platform: 'linux',
 			overwrite: true,
 			quiet: true
