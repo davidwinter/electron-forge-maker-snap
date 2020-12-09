@@ -159,9 +159,11 @@ if (!process.env.FAST_TESTS) {
 
 		t.true(fse.existsSync(path.join(destDir, 'app')));
 
-		t.true(await pkg.createSnapPackage());
+		const snapfilePath = await pkg.createSnapPackage();
 
-		t.true(fse.existsSync(path.join(
-			makeOptions.makeDir, 'nimble-notes-v3-2.0.3.snap')));
+		t.is(snapfilePath, path.join(
+			makeOptions.makeDir, 'nimble-notes-v3-2.0.3.snap'));
+
+		t.true(fse.existsSync(snapfilePath));
 	});
 }
