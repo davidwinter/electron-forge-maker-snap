@@ -1,6 +1,7 @@
 const MakerBase = require('@electron-forge/maker-base').default;
 const SnapPackager = require('./snap-packager');
 const fse = require('fs-extra');
+const path = require('path');
 const {spawn} = require('child_process');
 
 module.exports = class MakerSnap extends MakerBase {
@@ -27,8 +28,18 @@ module.exports = class MakerSnap extends MakerBase {
 		});
 
 		pkg.createSnapcraftFiles();
-		pkg.createSnapPackage();
 
-		return [`${pkg.values.executableName}_${pkg.values.version}_amd64.snap`];
+		const snapFileLocation = await pkg.createSnapPackage();
+		const snapFilename = path.basename(snapFileLocation);
+
+		const finalSnapLocation = path.join(options.makeDir, snapFilename);
+
+		fse.renameSync(snapFileLocation, finalSnapLocation);
+
+		const snapcraftDirectory = path.dirname(snapFileLocation);
+
+		fse.rmdirSync(snapcraftDirectory, {recursive: true});
+
+		return [finalSnapLocation];
 	}
 };

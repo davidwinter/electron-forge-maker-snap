@@ -89,11 +89,18 @@ module.exports = class SnapCommand {
 	async createSnapPackage() {
 		let result = null;
 
+		const snapFile = `${this.values.executableName}-${this.values.version}.snap`;
+		const pathToSnapFile = path.join(this.options.makeOptions.makeDir, 'snapcraft', snapFile);
+
+		debug(`Snap to create: ${snapFile}`);
+
 		try {
 			result = await new Promise((resolve, reject) => {
-				const snapcraft = this.deps.spawn('snapcraft', [], {
+				const snapcraft = this.deps.spawn('snapcraft', ['snap', '--output', snapFile], {
 					cwd: path.join(this.options.makeOptions.makeDir, 'snapcraft')
 				});
+
+				debug('Snapcraft is now running...');
 
 				snapcraft.on('close', code => {
 					if (code === 0) {
@@ -113,11 +120,13 @@ module.exports = class SnapCommand {
 				});
 			});
 		} catch (error) {
-			throw new Error(error);
+			debug(`Snapcraft error: ${error.stderr}`);
+
+			throw new Error(error.stderr);
 		}
 
 		debug(`snapcraft finished with status code: ${result}`);
 
-		return result === 0;
+		return pathToSnapFile;
 	}
 };
