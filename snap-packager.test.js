@@ -162,7 +162,7 @@ if (!process.env.FAST_TESTS) {
 		const snapfilePath = await pkg.createSnapPackage();
 
 		t.is(snapfilePath, path.join(
-			makeOptions.makeDir, 'nimble-notes-v3-2.0.3.snap'));
+			makeOptions.makeDir, 'snapcraft', 'nimble-notes-v3-2.0.3.snap'));
 
 		t.true(fse.existsSync(snapfilePath));
 	});
