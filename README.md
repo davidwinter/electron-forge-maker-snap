@@ -41,7 +41,7 @@ electron-forge make --target="@davidwinter/electron-forge-maker-snap"
 Run with `DEBUG='snap-packager'` for debug output from `snapcraft`:
 
 ```
-DEBUG='snap-packager' electron-forge make --target="@davidwinter/electron-forge-maker-snap"
+DEBUG='forge-maker-snap:*' electron-forge make --target="@davidwinter/electron-forge-maker-snap"
 ```
 
 ## Configuration
