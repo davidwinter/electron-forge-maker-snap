@@ -1,6 +1,6 @@
 # @davidwinter/electron-forge-maker-snap
 
-[![test](https://github.com/davidwinter/electron-forge-maker-snap/workflows/test/badge.svg)](https://github.com/davidwinter/electron-forge-maker-snap/actions?query=workflow%3Atest) [![Codecov](https://img.shields.io/codecov/c/github/davidwinter/electron-forge-maker-snap)](https://codecov.io/gh/davidwinter/electron-forge-maker-snap) [![npm](https://img.shields.io/npm/dw/@davidwinter/electron-forge-maker-snap)](https://www.npmjs.com/package/@davidwinter/electron-forge-maker-snap)
+[![test](https://github.com/davidwinter/electron-forge-maker-snap/workflows/test/badge.svg)](https://github.com/davidwinter/electron-forge-maker-snap/actions?query=workflow%3Atest) [![Codecov](https://img.shields.io/codecov/c/github/davidwinter/electron-forge-maker-snap)](https://codecov.io/gh/davidwinter/electron-forge-maker-snap) [![npm (scoped)](https://img.shields.io/npm/v/@davidwinter/electron-forge-maker-snap)](https://www.npmjs.com/package/@davidwinter/electron-forge-maker-snap) [![npm](https://img.shields.io/npm/dw/@davidwinter/electron-forge-maker-snap)](https://www.npmjs.com/package/@davidwinter/electron-forge-maker-snap)
 
 > Simple snap packaging for `electron-forge` that just works
 
