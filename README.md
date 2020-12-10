@@ -1,35 +1,35 @@
-# @davidwinter/electron-forge-maker-snap [![test](https://github.com/davidwinter/electron-forge-maker-snap/workflows/test/badge.svg)](https://github.com/davidwinter/electron-forge-maker-snap/actions?query=workflow%3Atest)
+# @davidwinter/electron-forge-maker-snap [![test](https://github.com/davidwinter/electron-forge-maker-snap/workflows/test/badge.svg)](https://github.com/davidwinter/electron-forge-maker-snap/actions?query=workflow%3Atest) [![Codecov](https://img.shields.io/codecov/c/github/davidwinter/electron-forge-maker-snap)](https://codecov.io/gh/davidwinter/electron-forge-maker-snap) [![npm](https://img.shields.io/npm/dw/@davidwinter/electron-forge-maker-snap)](https://www.npmjs.com/package/@davidwinter/electron-forge-maker-snap)
 
 > Simple snap packaging for `electron-forge` that just works
 
 ## Prerequisites
 
-- `snapcraft` [installed](https://snapcraft.io/docs/installing-snapcraft)
+- Ensure that `snapcraft` is [installed](https://snapcraft.io/docs/installing-snapcraft) via `snap` (the `.deb` version of `snap` is now deprecated)
 
 ## Installation
 
-```
-npm install @davidwinter/electron-forge-maker-snap --dev
+```sh
+yarn add @davidwinter/electron-forge-maker-snap --dev
 ```
 
 or
 
-```
-yarn add @davidwinter/electron-forge-maker-snap --dev
+```sh
+npm install @davidwinter/electron-forge-maker-snap --dev
 ```
 
 ## Usage
 
-Within your `electron-forge` config, add:
+You can read more about [Makers config on the electron-forge website](https://www.electronforge.io/config/makers), but essentially the config required is:
 
 ```js
-makers: [
-	...
-	, {
-		name: '@davidwinter/electron-forge-maker-snap'
-	},
-	...
-]
+{
+	name: '@davidwinter/electron-forge-maker-snap',
+	config: {
+		categories: ['Utility']
+		// See below for more configuration options
+	}
+}
 ```
 
 Then make your snap package:
@@ -38,30 +38,42 @@ Then make your snap package:
 electron-forge make --target="@davidwinter/electron-forge-maker-snap"
 ```
 
-Once completed, the snap package will be located at: `out/make` with a filename like `{executable}-{version}.snap`, for example, `nimblenote-2.0.3.snap`
+Once completed, the snap package will be located at: `out/make` with a filename like `{executable}-{version}.snap`, for example, `out/make/nimblenote-2.0.3.snap`.
 
-Run with `DEBUG='forge-maker-snap:*'` for debug output from `snapcraft`:
+### Using with CI
 
+When using this maker with CI, such as GitHub Actions, CircleCI etc, it is best practice to tell `snapcraft` to build snaps in the `host` build environment. To do this, set the environment variable `SNAP_BUILD_ENVIRONMENT=host`.
+
+An example that works with GitHub Actions:
+
+```yml
+- name: Install snapcraft
+  run: sudo snap install snapcraft --classic
+
+- name: Build snap package
+  run: yarn make
+  env:
+    SNAPCRAFT_BUILD_ENVIRONMENT: host
+
+- name: Upload snap artifact
+  uses: actions/upload-artifact@v2
+  with:
+    path: out/make/*.snap
 ```
-DEBUG='forge-maker-snap:*' electron-forge make --target="@davidwinter/electron-forge-maker-snap"
+
+### Debugging
+
+Run with `DEBUG='electron-forge-maker-snap:*,electron-forge:lifecycle'` for debug output from `snapcraft`:
+
+```sh
+DEBUG='electron-forge-maker-snap:*,electron-forge:lifecycle' electron-forge make --target="@davidwinter/electron-forge-maker-snap"
 ```
+
+Appending the `,electron-forge:lifecycle` debug namespace above is required in order to see this makers debug output. Otherwise by default, during the `electron-forge` output, any other `debug` messages are suppressed so that it doesn't interfere with the CLI interface. Adding this additional namespace acts as a flag to enable the debug output in a safe way.
 
 ## Configuration
 
-The maker will try and figure out a bunch of sensible defaults for your config, but the following values can be overridden. For example, to add `categories`:
-
-```js
-makers: [
-	...
-	, {
-		name: '@davidwinter/electron-forge-maker-snap',
-		config: {
-			categories: ['Utility', 'Development']
-		}
-	},
-	...
-]
-```
+The maker will try and figure out a bunch of sensible defaults for your config, but the following values can be overridden.
 
 ### applicationName
 
