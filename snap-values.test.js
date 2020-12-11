@@ -177,7 +177,7 @@ test('stagePackages has defaults', t => {
 	const makerOptions = {};
 	const values = new SnapValues({makeOptions, makerOptions});
 
-	t.deepEqual(values.stagePackages, ['libnss3', 'libnspr4']);
+	t.is(values.stagePackages, SnapValues.defaultStagePackages);
 });
 
 test('stagePackages can be replaced', t => {
@@ -186,7 +186,7 @@ test('stagePackages can be replaced', t => {
 	};
 	const values = new SnapValues({makeOptions, makerOptions});
 
-	t.deepEqual(values.stagePackages, ['testPackage1', 'testPackage2']);
+	t.is(values.stagePackages, makerOptions.stagePackages);
 });
 
 test('stagePackages can be overridden and include defaults', t => {
@@ -195,8 +195,9 @@ test('stagePackages can be overridden and include defaults', t => {
 	};
 	const values = new SnapValues({makeOptions, makerOptions});
 
-	t.deepEqual(values.stagePackages.sort,
-		['testPackage1', 'testPackage2', 'libnss3', 'libnspr4'].sort);
+	t.is(values.stagePackages.sort,
+		makerOptions.stagePackages.concat(
+			makerOptions.stagePackages.filter(item => item !== 'default')).sort);
 });
 
 test('layout values can be added', t => {

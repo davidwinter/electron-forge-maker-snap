@@ -91,6 +91,16 @@ class SnapValues {
 	}
 }
 
-SnapValues.defaultStagePackages = ['libnss3', 'libnspr4'];
+SnapValues.defaultStagePackages = [
+	'libnss3',
+	'libnspr4',
+	'libasound2',
+	'libgconf2-4',
+	'libnotify4',
+	'libpcre3',
+	'libpulse0',
+	'libxss1',
+	'libxtst6'
+];
 
 module.exports = SnapValues;

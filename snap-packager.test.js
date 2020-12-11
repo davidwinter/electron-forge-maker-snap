@@ -6,6 +6,7 @@ const path = require('path');
 const packager = require('electron-packager');
 
 const SnapPackager = require('./snap-packager');
+const SnapValues = require('./snap-values');
 
 const makeOptions = {
 	appName: 'Nimble Notes v3!',
@@ -29,7 +30,7 @@ const makeOptions = {
 };
 
 const makerOptions = {
-	stagePackages: ['default', 'libpcre3'],
+	stagePackages: ['default', 'scrot'],
 	layout: {
 		'/usr/lib/x86_64-linux-gnu/imlib2': {
 			bind: '$SNAP/meta/gui/nimble-notes-v3.png'
@@ -112,11 +113,9 @@ test('generation of snapcraft.yaml', t => {
 			app: {
 				source: './app',
 				'override-build': 'cp -rv . $SNAPCRAFT_PART_INSTALL/nimble-notes-v3',
-				'stage-packages': [
-					'libpcre3',
-					'libnss3',
-					'libnspr4'
-				]
+				'stage-packages': makerOptions.stagePackages.filter(item => item !== 'default').concat(
+					SnapValues.defaultStagePackages
+				)
 			}
 		},
 		layout: {

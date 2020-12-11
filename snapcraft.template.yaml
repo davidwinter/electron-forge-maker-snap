@@ -13,13 +13,17 @@ apps:
     command: SNAP-TEMPLATE/SNAP-TEMPLATE --no-sandbox
     extensions: [gnome-3-34]
     plugs:
+      - alsa
       - browser-support
       - desktop
       - desktop-legacy
       - gsettings
       - home
       - network
+      - opengl
+      - pulseaudio
       - unity7
+      - x11
     environment:
       TMPDIR: $XDG_RUNTIME_DIR
 
