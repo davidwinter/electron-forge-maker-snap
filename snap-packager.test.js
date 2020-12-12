@@ -1,4 +1,5 @@
 const test = require('ava');
+const sinon = require('sinon');
 
 const {spawn} = require('child_process');
 const path = require('path');
@@ -106,6 +107,26 @@ test('generation of snapcraft.yaml', t => {
 	});
 
 	t.true(snapYaml.apps['SNAP-TEMPLATE'] === undefined);
+});
+
+test('creation of snap files will remove destination path if it exists', t => {
+	const fseStub = sinon.stub(fse);
+
+	const pkg = new SnapPackager({
+		makeOptions,
+		makerOptions,
+		dependencies: {
+			...dependencies,
+			fse: fseStub
+		}
+	});
+
+	fseStub.existsSync.returns(true);
+	fseStub.readFileSync.callThrough();
+
+	pkg.createSnapcraftFiles();
+
+	t.true(fseStub.rmdirSync.calledOnce);
 });
 
 if (!process.env.FAST_TESTS) {
