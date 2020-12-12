@@ -3,6 +3,7 @@ const sinon = require('sinon');
 
 const {spawn} = require('child_process');
 const path = require('path');
+const EventEmitter = require('events');
 
 const yaml = require('js-yaml');
 const fse = require('fs-extra');
@@ -127,6 +128,30 @@ test('creation of snap files will remove destination path if it exists', t => {
 	pkg.createSnapcraftFiles();
 
 	t.true(fseStub.rmdirSync.calledOnce);
+});
+
+test('will throw error if snapcraft finishes with non-zero exit code', t => {
+	class SpawnEmitter extends EventEmitter {}
+	const spawnEmitter = new SpawnEmitter();
+	spawnEmitter.stdout = new SpawnEmitter();
+
+	const spawnStub = sinon.stub().returns(spawnEmitter);
+
+	const pkg = new SnapPackager({
+		makeOptions,
+		makerOptions,
+		dependencies: {
+			spawn: spawnStub
+		}
+	});
+
+	const snapPromise = pkg.createSnapPackage().catch(error => {
+		t.is(error.message, 'Snapcraft exited with a non-zero status code of: 120');
+	});
+
+	spawnEmitter.emit('close', 120);
+
+	return snapPromise;
 });
 
 if (!process.env.FAST_TESTS) {

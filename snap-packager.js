@@ -123,7 +123,7 @@ module.exports = class SnapPackager {
 						return;
 					}
 
-					reject(code);
+					reject(new Error(`Snapcraft exited with a non-zero status code of: ${code}`));
 				});
 
 				snapcraft.on('error', error => {
@@ -137,9 +137,9 @@ module.exports = class SnapPackager {
 				});
 			});
 		} catch (error) {
-			debug(`Snapcraft encountered the following error (stderr): ${error.stderr}`);
+			debug(error.message);
 
-			throw new Error(error.stderr);
+			throw error;
 		}
 
 		debug(`Snapcraft finished with status code: ${result}`);
