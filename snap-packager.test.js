@@ -1,8 +1,10 @@
 const test = require('ava');
-const yaml = require('js-yaml');
-const fse = require('fs-extra');
+
 const {spawn} = require('child_process');
 const path = require('path');
+
+const yaml = require('js-yaml');
+const fse = require('fs-extra');
 const packager = require('electron-packager');
 
 const SnapPackager = require('./snap-packager');
@@ -19,13 +21,10 @@ const makeOptions = {
 		version: '2.0.3',
 		description: 'Simple note taking',
 		license: 'MIT'
-		// Name = name
-		// Product name = productName
-		// Description = description
 	},
 	targetArch: 'x64',
-	dir: './test/artifacts/out/Nimble Notes v3!-linux-x64', // '/Users/davidwinter/projects/nimblenote/out/nimblenote-linux-x64',
-	makeDir: './test/artifacts/make', // '/Users/davidwinter/projects/nimblenote/out/make',
+	dir: './test/artifacts/out/Nimble Notes v3!-linux-x64',
+	makeDir: './test/artifacts/make',
 	targetPlatform: 'linux'
 };
 
@@ -36,8 +35,6 @@ const makerOptions = {
 			bind: '$SNAP/meta/gui/nimble-notes-v3.png'
 		}
 	}
-	// Icon = icon: './build/icon.png',
-	// Categories = categories: ['Utility']
 };
 
 const dependencies = {
@@ -52,23 +49,6 @@ test.beforeEach(() => {
 
 test.afterEach(() => {
 	fse.rmdirSync('./test/artifacts', {recursive: true});
-});
-
-test('packager setup without overrides', t => {
-	const pkg = new SnapPackager({
-		makeOptions,
-		makerOptions,
-		dependencies
-	});
-
-	t.is(pkg.values.applicationName, 'Nimble Notes v3!');
-	t.is(pkg.values.version, '2.0.3');
-	t.is(pkg.values.executableName, 'nimble-notes-v3');
-	t.is(pkg.values.packagedExecutableName, 'Nimble Notes v3!');
-	t.is(pkg.values.icon, path.join(process.cwd(), 'test/fixtures/icon.png'));
-	t.is(pkg.values.summary, 'Simple note taking');
-	t.is(pkg.values.description, 'Simple note taking');
-	t.deepEqual(pkg.values.categories, []);
 });
 
 test('generation of desktop file', t => {

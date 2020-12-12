@@ -3,6 +3,16 @@ const test = require('ava');
 const SnapValues = require('./snap-values');
 
 const makeOptions = {
+	/**
+	 * Derived from either (in order):
+	 *
+	 * - packagerConfig.name
+	 * - packageJSON.productName
+	 * - packageJSON.name
+	 *
+	 * This is the basis for the executable name used by electron-packager
+	 * though it runs the name through a sanitiser for the platforms.
+	 */
 	appName: 'Nimble Notes v3!',
 	forgeConfig: {
 		packagerConfig: {
@@ -13,17 +23,13 @@ const makeOptions = {
 		version: '2.0.3',
 		description: 'Simple note taking',
 		license: 'MIT'
-		// Name = name
-		// Product name = productName
-		// Description = description
 	},
 	targetArch: 'x64',
 	targetPlatform: 'linux'
 };
 
 test('applicationName is derived from electron-forge appName', t => {
-	const makerOptions = {};
-	const values = new SnapValues({makeOptions, makerOptions});
+	const values = new SnapValues({makeOptions, makerOptions: {}});
 
 	t.is(values.applicationName, 'Nimble Notes v3!');
 });
@@ -35,7 +41,7 @@ test('applicationName is overridden', t => {
 
 	const values = new SnapValues({makeOptions, makerOptions});
 
-	t.is(values.applicationName, 'Nimble Notes!');
+	t.is(values.applicationName, makerOptions.applicationName);
 });
 
 test('applicationName will be marked as invalid if over 40 characters', t => {
@@ -50,9 +56,8 @@ test('applicationName will be marked as invalid if over 40 characters', t => {
 	}, {message: `applicationName must be 40 characters or less: ${makerOptions.applicationName}`});
 });
 
-test('executableName will be derived from applicationName and auto-sanitised', t => {
-	const makerOptions = {};
-	const values = new SnapValues({makeOptions, makerOptions});
+test('executableName derived from applicationName and auto-sanitised', t => {
+	const values = new SnapValues({makeOptions, makerOptions: {}});
 
 	t.is(values.executableName, 'nimble-notes-v3');
 });
@@ -68,23 +73,19 @@ test('executableName can be overriden with make options', t => {
 });
 
 test('packagedExecutableName is calculated from electron-packager', t => {
-	const makerOptions = {};
-
-	const values = new SnapValues({makeOptions, makerOptions});
+	const values = new SnapValues({makeOptions, makerOptions: {}});
 
 	t.is(values.packagedExecutableName, 'Nimble Notes v3!');
 });
 
 test('version will be derived from package.json', t => {
-	const makerOptions = {};
-	const values = new SnapValues({makeOptions, makerOptions});
+	const values = new SnapValues({makeOptions, makerOptions: {}});
 
 	t.is(values.version, '2.0.3');
 });
 
 test('summary will be derived from package.json', t => {
-	const makerOptions = {};
-	const values = new SnapValues({makeOptions, makerOptions});
+	const values = new SnapValues({makeOptions, makerOptions: {}});
 
 	t.is(values.summary, 'Simple note taking');
 });
@@ -110,8 +111,7 @@ test('summary will throw an error if longer than 78 characters', t => {
 });
 
 test('description will be derived from package.json', t => {
-	const makerOptions = {};
-	const values = new SnapValues({makeOptions, makerOptions});
+	const values = new SnapValues({makeOptions, makerOptions: {}});
 
 	t.is(values.description, 'Simple note taking');
 });
@@ -126,8 +126,7 @@ test('description can be overridden', t => {
 });
 
 test('license is derived from package.json', t => {
-	const makerOptions = {};
-	const values = new SnapValues({makeOptions, makerOptions});
+	const values = new SnapValues({makeOptions, makerOptions: {}});
 
 	t.is(values.license, 'MIT');
 });
@@ -142,8 +141,7 @@ test('license can be overridden', t => {
 });
 
 test('icon is derived from forge config', t => {
-	const makerOptions = {};
-	const values = new SnapValues({makeOptions, makerOptions});
+	const values = new SnapValues({makeOptions, makerOptions: {}});
 
 	t.is(values.icon, `${process.cwd()}/test/fixtures/icon.png`);
 });
@@ -158,8 +156,7 @@ test('icon can be overridden', t => {
 });
 
 test('categories default to empty', t => {
-	const makerOptions = {};
-	const values = new SnapValues({makeOptions, makerOptions});
+	const values = new SnapValues({makeOptions, makerOptions: {}});
 
 	t.deepEqual(values.categories, []);
 });
@@ -174,8 +171,7 @@ test('categories can be set', t => {
 });
 
 test('stagePackages has defaults', t => {
-	const makerOptions = {};
-	const values = new SnapValues({makeOptions, makerOptions});
+	const values = new SnapValues({makeOptions, makerOptions: {}});
 
 	t.is(values.stagePackages, SnapValues.defaultStagePackages);
 });
@@ -197,7 +193,8 @@ test('stagePackages can be overridden and include defaults', t => {
 
 	t.is(values.stagePackages.sort,
 		makerOptions.stagePackages.concat(
-			makerOptions.stagePackages.filter(item => item !== 'default')).sort);
+			makerOptions.stagePackages.filter(item => item !== 'default'))
+			.sort);
 });
 
 test('layout values can be added', t => {
