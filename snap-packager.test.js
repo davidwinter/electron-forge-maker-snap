@@ -154,6 +154,30 @@ test('will throw error if snapcraft finishes with non-zero exit code', t => {
 	return snapPromise;
 });
 
+test('will throw error if snapcraft process errors', t => {
+	class SpawnEmitter extends EventEmitter {}
+	const spawnEmitter = new SpawnEmitter();
+	spawnEmitter.stdout = new SpawnEmitter();
+
+	const spawnStub = sinon.stub().returns(spawnEmitter);
+
+	const pkg = new SnapPackager({
+		makeOptions,
+		makerOptions,
+		dependencies: {
+			spawn: spawnStub
+		}
+	});
+
+	const snapPromise = pkg.createSnapPackage().catch(error => {
+		t.is(error.message, 'Snapcraft process error');
+	});
+
+	spawnEmitter.emit('error', new Error('Snapcraft process error'));
+
+	return snapPromise;
+});
+
 if (!process.env.FAST_TESTS) {
 	test.serial('creation of snap package', async t => {
 		await packager({
