@@ -191,10 +191,38 @@ test('stagePackages can be overridden and include defaults', t => {
 	};
 	const values = new SnapValues({makeOptions, makerOptions});
 
-	t.is(values.stagePackages.sort,
-		makerOptions.stagePackages.concat(
+	t.deepEqual(values.stagePackages.sort(),
+		SnapValues.defaultStagePackages.concat(
 			makerOptions.stagePackages.filter(item => item !== 'default'))
-			.sort);
+			.sort());
+});
+
+test('plugs have defaults', t => {
+	const values = new SnapValues({makeOptions, makerOptions: {}});
+
+	t.true(Array.isArray(SnapValues.defaultPlugs));
+	t.is(values.plugs, SnapValues.defaultPlugs);
+});
+
+test('plugs can be replaced', t => {
+	const makerOptions = {
+		plugs: ['x11', 'home']
+	};
+	const values = new SnapValues({makeOptions, makerOptions});
+
+	t.is(values.plugs, makerOptions.plugs);
+});
+
+test('plugs can be overridden and include defaults', t => {
+	const makerOptions = {
+		plugs: ['desktop-legacy', 'media-hub', 'default']
+	};
+	const values = new SnapValues({makeOptions, makerOptions});
+
+	t.deepEqual(values.plugs.sort(),
+		SnapValues.defaultPlugs.concat(
+			makerOptions.plugs.filter(item => item !== 'default'))
+			.sort());
 });
 
 test('layout values can be added', t => {

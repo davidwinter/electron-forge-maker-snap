@@ -81,6 +81,16 @@ class SnapValues {
 		return this.values.stagePackages;
 	}
 
+	get plugs() {
+		this.values.plugs = this.makerOptions.plugs || SnapValues.defaultPlugs;
+
+		if (this.values.plugs.includes('default')) {
+			this.values.plugs = this.values.plugs.filter(i => i !== 'default').concat(SnapValues.defaultPlugs);
+		}
+
+		return this.values.plugs;
+	}
+
 	get layout() {
 		return this.makerOptions.layout;
 	}
@@ -101,6 +111,20 @@ SnapValues.defaultStagePackages = [
 	'libpulse0',
 	'libxss1',
 	'libxtst6'
+];
+
+SnapValues.defaultPlugs = [
+	'alsa',
+	'browser-support',
+	'desktop',
+	'desktop-legacy',
+	'gsettings',
+	'home',
+	'network',
+	'opengl',
+	'pulseaudio',
+	'unity7',
+	'x11'
 ];
 
 module.exports = SnapValues;
