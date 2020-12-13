@@ -89,7 +89,10 @@ test('generation of snapcraft.yaml', t => {
 		license: 'MIT',
 		apps: {
 			'nimble-notes-v3': {
-				command: 'nimble-notes-v3/nimble-notes-v3 --no-sandbox'
+				command: 'nimble-notes-v3/nimble-notes-v3 --no-sandbox',
+				plugs: makerOptions.plugs.filter(item => item !== 'default').concat(
+					SnapValues.defaultPlugs
+				)
 			}
 		},
 		parts: {
@@ -98,9 +101,6 @@ test('generation of snapcraft.yaml', t => {
 				'override-build': 'cp -rv . $SNAPCRAFT_PART_INSTALL/nimble-notes-v3',
 				'stage-packages': makerOptions.stagePackages.filter(item => item !== 'default').concat(
 					SnapValues.defaultStagePackages
-				),
-				plugs: makerOptions.plugs.filter(item => item !== 'default').concat(
-					SnapValues.defaultPlugs
 				)
 			}
 		},
