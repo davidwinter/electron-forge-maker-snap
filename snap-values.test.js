@@ -196,6 +196,32 @@ test('confinement must be valid value', t => {
 	}, {message: 'confinement must be either `strict`, `devmode` or `classic`'});
 });
 
+test('grade defaults to stable', t => {
+	const values = new SnapValues({makeOptions, makerOptions: {}});
+
+	t.is(values.grade, 'stable');
+});
+
+test('grade can be overridden', t => {
+	const makerOptions = {
+		grade: 'devel'
+	};
+	const values = new SnapValues({makeOptions, makerOptions});
+
+	t.is(values.grade, makerOptions.grade);
+});
+
+test('grade must be valid value', t => {
+	const makerOptions = {
+		grade: 'mediocre'
+	};
+	const values = new SnapValues({makeOptions, makerOptions});
+
+	t.throws(() => {
+		console.log(values.grade);
+	}, {message: 'grade must be either `stable` or `devel`'});
+});
+
 test('stagePackages has defaults', t => {
 	const values = new SnapValues({makeOptions, makerOptions: {}});
 

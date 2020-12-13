@@ -32,6 +32,7 @@ const makeOptions = {
 
 const makerOptions = {
 	confinement: 'strict',
+	grade: 'stable',
 	stagePackages: ['default', 'scrot'],
 	plugs: ['media-hub', 'default'],
 	layout: {
@@ -89,6 +90,7 @@ test('generation of snapcraft.yaml', t => {
 		description: 'Simple note taking',
 		license: 'MIT',
 		confinement: 'strict',
+		grade: 'stable',
 		apps: {
 			'nimble-notes-v3': {
 				command: 'nimble-notes-v3/nimble-notes-v3 --no-sandbox',

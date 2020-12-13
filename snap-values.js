@@ -77,6 +77,16 @@ class SnapValues {
 		return this.values.confinement;
 	}
 
+	get grade() {
+		this.values.grade = this.makerOptions.grade || 'stable';
+
+		if (['stable', 'devel'].includes(this.values.grade) === false) {
+			throw new Error('grade must be either `stable` or `devel`');
+		}
+
+		return this.values.grade;
+	}
+
 	get categories() {
 		return this.makerOptions.categories || [];
 	}
