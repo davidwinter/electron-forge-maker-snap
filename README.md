@@ -145,9 +145,16 @@ These categories define which menus the application belongs to on a Linux distri
 ### stagePackages
 
 **Type:** `array` of `string`\
-**Default:** `['libnss3', 'libnspr4']`
+**Default:** `['libnss3', 'libnspr4', 'libasound2', 'libgconf2-4', 'libnotify4', 'libpcre3', 'libpulse0', 'libxss1', 'libxtst6']`
 
 List of additional packages required to support creationg of the app. If you want to add packages in addition to the default, add an item named `default`, for example: `['default', 'libxfixes3']`.
+
+### plugs
+
+**Type:** `array` of `string`\
+**Default:** `['alsa', 'browser-support', 'desktop', 'desktop-legacy', 'gsettings', 'home', 'network', 'opengl', 'pulseaudio', 'unity7', 'x11']`
+
+List of additional plugs to include in the snap. If you want to add plugs in addition to the default, add an item named `default`, for example: `['default', 'media-hub']` to add the `media-hub` plug in addition to all of the defaults.
 
 ### layout
 
