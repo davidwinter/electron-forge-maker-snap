@@ -170,6 +170,32 @@ test('categories can be set', t => {
 	t.deepEqual(values.categories, makerOptions.categories);
 });
 
+test('confinement defaults to strict', t => {
+	const values = new SnapValues({makeOptions, makerOptions: {}});
+
+	t.is(values.confinement, 'strict');
+});
+
+test('confinement can be overridden', t => {
+	const makerOptions = {
+		confinement: 'devmode'
+	};
+	const values = new SnapValues({makeOptions, makerOptions});
+
+	t.is(values.confinement, makerOptions.confinement);
+});
+
+test('confinement must be valid value', t => {
+	const makerOptions = {
+		confinement: 'relaxed'
+	};
+	const values = new SnapValues({makeOptions, makerOptions});
+
+	t.throws(() => {
+		console.log(values.confinement);
+	}, {message: 'confinement must be either `strict`, `devmode` or `classic`'});
+});
+
 test('stagePackages has defaults', t => {
 	const values = new SnapValues({makeOptions, makerOptions: {}});
 

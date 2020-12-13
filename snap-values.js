@@ -67,6 +67,16 @@ class SnapValues {
 		return this.values.icon;
 	}
 
+	get confinement() {
+		this.values.confinement = this.makerOptions.confinement || 'strict';
+
+		if (['strict', 'devmode', 'classic'].includes(this.values.confinement) === false) {
+			throw new Error('confinement must be either `strict`, `devmode` or `classic`');
+		}
+
+		return this.values.confinement;
+	}
+
 	get categories() {
 		return this.makerOptions.categories || [];
 	}

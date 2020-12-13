@@ -41,6 +41,7 @@ module.exports = class SnapPackager {
 		doc.icon = `./snap/gui/${this.values.executableName}.png`;
 		doc.summary = this.values.summary;
 		doc.description = this.values.description;
+		doc.confinement = this.values.confinement;
 
 		if (this.values.license) {
 			doc.license = this.values.license;

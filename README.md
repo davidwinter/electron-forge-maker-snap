@@ -97,6 +97,13 @@ Can only contain letters in lower case, numbers, and hyphens, and it can’t sta
 
 **Example:** `acme-notes-3`
 
+### confinement
+
+**Type:** `string`\
+**Default:** `strict`
+
+The snap confinement can be either `strict`, `devmode` or `classic`.
+
 ### summary
 
 **Type:** `string`\

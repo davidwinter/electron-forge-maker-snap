@@ -5,7 +5,7 @@ icon: ./build/icon.png
 summary: ''
 description: ''
 base: core18
-confinement: strict
+confinement: ''
 grade: stable
 
 apps:
