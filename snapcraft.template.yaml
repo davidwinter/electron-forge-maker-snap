@@ -6,7 +6,7 @@ summary: ''
 description: ''
 base: core18
 confinement: ''
-grade: stable
+grade: ''
 
 apps:
   SNAP-TEMPLATE:

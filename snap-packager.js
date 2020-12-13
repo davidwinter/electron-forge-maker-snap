@@ -42,6 +42,7 @@ module.exports = class SnapPackager {
 		doc.summary = this.values.summary;
 		doc.description = this.values.description;
 		doc.confinement = this.values.confinement;
+		doc.grade = this.values.grade;
 
 		if (this.values.license) {
 			doc.license = this.values.license;

@@ -104,6 +104,13 @@ Can only contain letters in lower case, numbers, and hyphens, and it can’t sta
 
 The snap confinement can be either `strict`, `devmode` or `classic`.
 
+### grade
+
+**Type:** `string`\
+**Default:** `stable`
+
+The snap grade can be either `stable` or `devel`.
+
 ### summary
 
 **Type:** `string`\
