@@ -49,10 +49,10 @@ module.exports = class SnapPackager {
 		doc.apps[this.values.executableName] = doc.apps['SNAP-TEMPLATE'];
 		delete doc.apps['SNAP-TEMPLATE'];
 		doc.apps[this.values.executableName].command = `${this.values.executableName}/${this.values.executableName} --no-sandbox`;
+		doc.apps[this.values.executableName].plugs = this.values.plugs;
 
 		doc.parts.app['override-build'] = `cp -rv . $SNAPCRAFT_PART_INSTALL/${this.values.executableName}`;
 		doc.parts.app['stage-packages'] = this.values.stagePackages;
-		doc.parts.app.plugs = this.values.plugs;
 
 		if (this.values.layout) {
 			doc.layout = this.values.layout;
