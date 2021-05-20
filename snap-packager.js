@@ -37,7 +37,7 @@ export default class SnapPackager {
 	}
 
 	generateSnapcraftYAML() {
-		const doc = yaml.safeLoad(this.deps.fse.readFileSync(path.join(path.dirname(fileURLToPath(import.meta.url)), 'snapcraft.template.yaml'), 'utf8'));
+		const doc = yaml.load(this.deps.fse.readFileSync(path.join(path.dirname(fileURLToPath(import.meta.url)), 'snapcraft.template.yaml'), 'utf8'));
 
 		doc.name = this.values.executableName;
 		doc.title = this.values.applicationName;
@@ -64,7 +64,7 @@ export default class SnapPackager {
 			doc.layout = this.values.layout;
 		}
 
-		return yaml.safeDump(doc);
+		return yaml.dump(doc);
 	}
 
 	createSnapcraftFiles() {

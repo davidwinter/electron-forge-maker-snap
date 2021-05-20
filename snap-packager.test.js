@@ -79,7 +79,7 @@ test('generation of snapcraft.yaml', t => {
 		dependencies
 	});
 
-	const snapYaml = yaml.safeLoad(pkg.generateSnapcraftYAML());
+	const snapYaml = yaml.load(pkg.generateSnapcraftYAML());
 
 	t.like(snapYaml, {
 		name: 'nimble-notes-v3',
