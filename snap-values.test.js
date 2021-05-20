@@ -1,6 +1,6 @@
-const test = require('ava');
+import test from 'ava';
 
-const SnapValues = require('./snap-values');
+import SnapValues from './snap-values.js';
 
 const makeOptions = {
 	/**
@@ -244,9 +244,9 @@ test('stagePackages can be overridden and include defaults', t => {
 	const values = new SnapValues({makeOptions, makerOptions});
 
 	t.deepEqual(values.stagePackages.sort(),
-		SnapValues.defaultStagePackages.concat(
-			makerOptions.stagePackages.filter(item => item !== 'default'))
-			.sort());
+		[...SnapValues.defaultStagePackages,
+			...makerOptions.stagePackages.filter(item => item !== 'default')].sort()
+	);
 });
 
 test('plugs have defaults', t => {
@@ -272,9 +272,9 @@ test('plugs can be overridden and include defaults', t => {
 	const values = new SnapValues({makeOptions, makerOptions});
 
 	t.deepEqual(values.plugs.sort(),
-		SnapValues.defaultPlugs.concat(
-			makerOptions.plugs.filter(item => item !== 'default'))
-			.sort());
+		[...SnapValues.defaultPlugs,
+			...makerOptions.plugs.filter(item => item !== 'default')].sort()
+	);
 });
 
 test('layout values can be added', t => {

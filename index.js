@@ -1,13 +1,17 @@
-const MakerBase = require('@electron-forge/maker-base').default;
-const SnapPackager = require('./snap-packager');
-const fse = require('fs-extra');
-const path = require('path');
-const {spawn} = require('child_process');
-const debug = require('debug')('electron-forge-maker-snap:maker-snap');
+import path from 'node:path';
+import {spawn} from 'node:child_process';
 
-debug.log = console.log.bind(console);
+import MakerBase from '@electron-forge/maker-base';
+import fse from 'fs-extra';
+import debug from 'debug';
 
-module.exports = class MakerSnap extends MakerBase {
+import SnapPackager from './snap-packager.js';
+
+const log = debug('electron-forge-maker-snap:maker-snap');
+
+log.log = console.log.bind(console);
+
+export default class MakerSnap extends MakerBase {
 	constructor(configFetcher, providedPlatforms) {
 		super(configFetcher, providedPlatforms);
 
@@ -20,7 +24,7 @@ module.exports = class MakerSnap extends MakerBase {
 	}
 
 	async make(options) {
-		debug('snap maker has been initiated from electron-forge');
+		log('snap maker has been initiated from electron-forge');
 
 		const pkg = new SnapPackager({
 			makeOptions: options,
@@ -32,27 +36,27 @@ module.exports = class MakerSnap extends MakerBase {
 			}
 		});
 
-		debug('Creating snapcraft related files');
+		log('Creating snapcraft related files');
 		pkg.createSnapcraftFiles();
-		debug('Snapcraft related files created');
+		log('Snapcraft related files created');
 
-		debug('Creating snap file');
+		log('Creating snap file');
 		const snapFileLocation = await pkg.createSnapPackage();
-		debug(`Snap file created at: ${snapFileLocation}`);
+		log(`Snap file created at: ${snapFileLocation}`);
 
 		const snapFilename = path.basename(snapFileLocation);
 
 		const finalSnapLocation = path.join(options.makeDir, snapFilename);
 
-		debug(`Moving snap file from ${snapFileLocation} to ${finalSnapLocation}`);
+		log(`Moving snap file from ${snapFileLocation} to ${finalSnapLocation}`);
 		fse.renameSync(snapFileLocation, finalSnapLocation);
-		debug(`Snap file moved to: ${finalSnapLocation}`);
+		log(`Snap file moved to: ${finalSnapLocation}`);
 
 		const snapcraftDirectory = path.dirname(snapFileLocation);
 		fse.rmdirSync(snapcraftDirectory, {recursive: true});
-		debug(`Tidy up; snapcraft files deleted from: ${snapcraftDirectory}`);
+		log(`Tidy up; snapcraft files deleted from: ${snapcraftDirectory}`);
 
-		debug(`Finishing snap maker, passing back to electron-forge with: ${finalSnapLocation}`);
+		log(`Finishing snap maker, passing back to electron-forge with: ${finalSnapLocation}`);
 		return [finalSnapLocation];
 	}
-};
+}
