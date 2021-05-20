@@ -39,6 +39,7 @@
 		"snapcraft.template.yaml"
 	],
 	"scripts": {
+		"prepare": "husky install",
 		"cm": "git-cz",
 		"lint": "xo",
 		"test": "xo && ava",
