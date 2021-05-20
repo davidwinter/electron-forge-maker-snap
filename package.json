@@ -75,7 +75,7 @@
 		"@commitlint/cli": "^12.1.4",
 		"@commitlint/config-conventional": "^12.1.4",
 		"ava": "^3.15.0",
-		"commitizen": "^4.2.3",
+		"commitizen": "^4.2.4",
 		"cz-conventional-changelog": "^3.3.0",
 		"husky": "^4.3.7",
 		"nyc": "^15.1.0",
