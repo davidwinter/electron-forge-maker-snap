@@ -50,12 +50,6 @@
 			"path": "cz-conventional-changelog"
 		}
 	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "yarn fast_tests",
-			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-		}
-	},
 	"ava": {
 		"files": [
 			"./*.test.js"
@@ -77,7 +71,7 @@
 		"ava": "^3.15.0",
 		"commitizen": "^4.2.4",
 		"cz-conventional-changelog": "^3.3.0",
-		"husky": "^4.3.7",
+		"husky": "^6.0.0",
 		"nyc": "^15.1.0",
 		"sinon": "^9.2.4",
 		"xo": "^0.40.1"
