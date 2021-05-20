@@ -146,6 +146,7 @@ SnapValues.defaultPlugs = [
 	'opengl',
 	'pulseaudio',
 	'unity7',
+	'wayland',
 	'x11'
 ];
 

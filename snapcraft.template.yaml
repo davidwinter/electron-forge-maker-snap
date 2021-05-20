@@ -23,8 +23,10 @@ apps:
       - opengl
       - pulseaudio
       - unity7
+      - wayland
       - x11
     environment:
+      DISABLE_WAYLAND: "1"
       TMPDIR: $XDG_RUNTIME_DIR
 
 parts:

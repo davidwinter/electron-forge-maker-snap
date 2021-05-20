@@ -166,7 +166,7 @@ List of additional packages required to support creationg of the app. If you wan
 ### plugs
 
 **Type:** `array` of `string`\
-**Default:** `['alsa', 'browser-support', 'desktop', 'desktop-legacy', 'gsettings', 'home', 'network', 'opengl', 'pulseaudio', 'unity7', 'x11']`
+**Default:** `['alsa', 'browser-support', 'desktop', 'desktop-legacy', 'gsettings', 'home', 'network', 'opengl', 'pulseaudio', 'unity7', 'wayland', 'x11']`
 
 List of additional plugs to include in the snap. If you want to add plugs in addition to the default, add an item named `default`, for example: `['default', 'media-hub']` to add the `media-hub` plug in addition to all of the defaults.
 
