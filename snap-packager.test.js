@@ -1,16 +1,16 @@
-const test = require('ava');
-const sinon = require('sinon');
+import {spawn} from 'node:child_process';
+import path from 'node:path';
+import EventEmitter from 'node:events';
 
-const {spawn} = require('child_process');
-const path = require('path');
-const EventEmitter = require('events');
+import test from 'ava';
+import sinon from 'sinon';
 
-const yaml = require('js-yaml');
-const fse = require('fs-extra');
-const packager = require('electron-packager');
+import yaml from 'js-yaml';
+import fse from 'fs-extra';
+import packager from 'electron-packager';
 
-const SnapPackager = require('./snap-packager');
-const SnapValues = require('./snap-values');
+import SnapPackager from './snap-packager.js';
+import SnapValues from './snap-values.js';
 
 const makeOptions = {
 	appName: 'Nimble Notes v3!',
@@ -94,18 +94,16 @@ test('generation of snapcraft.yaml', t => {
 		apps: {
 			'nimble-notes-v3': {
 				command: 'nimble-notes-v3/nimble-notes-v3 --no-sandbox',
-				plugs: makerOptions.plugs.filter(item => item !== 'default').concat(
-					SnapValues.defaultPlugs
-				)
+				plugs: [...makerOptions.plugs.filter(item => item !== 'default'),
+					...SnapValues.defaultPlugs]
 			}
 		},
 		parts: {
 			app: {
 				source: './app',
 				'override-build': 'cp -rv . $SNAPCRAFT_PART_INSTALL/nimble-notes-v3',
-				'stage-packages': makerOptions.stagePackages.filter(item => item !== 'default').concat(
-					SnapValues.defaultStagePackages
-				)
+				'stage-packages': [...makerOptions.stagePackages.filter(item => item !== 'default'),
+					...SnapValues.defaultStagePackages]
 			}
 		},
 		layout: {
@@ -153,7 +151,7 @@ test('will throw error if snapcraft finishes with non-zero exit code', t => {
 		}
 	});
 
-	const snapPromise = pkg.createSnapPackage().catch(error => {
+	const snapPromise = pkg.createSnapPackage().catch(error => { // eslint-disable-line promise/prefer-await-to-then
 		t.is(error.message, 'Snapcraft exited with a non-zero status code of: 120');
 	});
 
@@ -177,7 +175,7 @@ test('will throw error if snapcraft process errors', t => {
 		}
 	});
 
-	const snapPromise = pkg.createSnapPackage().catch(error => {
+	const snapPromise = pkg.createSnapPackage().catch(error => { // eslint-disable-line promise/prefer-await-to-then
 		t.is(error.message, 'Snapcraft process error');
 	});
 

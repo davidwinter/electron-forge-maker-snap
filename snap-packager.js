@@ -1,13 +1,17 @@
-const path = require('path');
-const ini = require('ini');
-const yaml = require('js-yaml');
-const debug = require('debug')('electron-forge-maker-snap:snap-packager');
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
 
-const SnapValues = require('./snap-values');
+import ini from 'ini';
+import yaml from 'js-yaml';
+import debug from 'debug';
 
-debug.log = console.log.bind(console);
+import SnapValues from './snap-values.js';
 
-module.exports = class SnapPackager {
+const log = debug('electron-forge-maker-snap:snap-packager');
+
+log.log = console.log.bind(console);
+
+export default class SnapPackager {
 	constructor(options) {
 		this.options = options;
 		this.deps = options.dependencies;
@@ -17,7 +21,7 @@ module.exports = class SnapPackager {
 			makerOptions: this.options.makerOptions
 		});
 
-		debug(`SnapPackager constructed with: ${options}`);
+		log(`SnapPackager constructed with: ${options}`);
 	}
 
 	generateDesktopFile() {
@@ -33,7 +37,7 @@ module.exports = class SnapPackager {
 	}
 
 	generateSnapcraftYAML() {
-		const doc = yaml.safeLoad(this.deps.fse.readFileSync(path.join(__dirname, './snapcraft.template.yaml'), 'utf8'));
+		const doc = yaml.safeLoad(this.deps.fse.readFileSync(path.join(path.dirname(fileURLToPath(import.meta.url)), 'snapcraft.template.yaml'), 'utf8'));
 
 		doc.name = this.values.executableName;
 		doc.title = this.values.applicationName;
@@ -74,26 +78,26 @@ module.exports = class SnapPackager {
 
 		const snapcraftYAML = this.generateSnapcraftYAML();
 		const snapcraftYAMLPath = path.join(destDir, 'snapcraft.yaml');
-		debug(`Generated snapcraft.yaml file contents:\n\n${snapcraftYAML}`);
+		log(`Generated snapcraft.yaml file contents:\n\n${snapcraftYAML}`);
 		this.deps.fse.writeFileSync(snapcraftYAMLPath, snapcraftYAML, 'utf8');
-		debug(`snapcraft.yaml file written to: ${snapcraftYAMLPath}`);
+		log(`snapcraft.yaml file written to: ${snapcraftYAMLPath}`);
 
 		const desktopFile = this.generateDesktopFile();
 		const desktopFilePath = path.join(destDir, 'gui', `${this.values.executableName}.desktop`);
-		debug(`Generated .desktop file contents:\n\n${desktopFile}`);
+		log(`Generated .desktop file contents:\n\n${desktopFile}`);
 		this.deps.fse.writeFileSync(desktopFilePath, desktopFile, 'utf8');
-		debug(`.desktop file written to: ${desktopFilePath}`);
+		log(`.desktop file written to: ${desktopFilePath}`);
 
 		const iconFileDestination = path.join(destDir, 'gui', `${this.values.executableName}.png`);
 		this.deps.fse.copyFileSync(this.values.icon, iconFileDestination);
-		debug(`Icon file copied to: ${iconFileDestination}`);
+		log(`Icon file copied to: ${iconFileDestination}`);
 
 		const appFiles = path.join(destDir, '..', 'app');
 		this.deps.fse.copySync(this.options.makeOptions.dir, appFiles);
-		debug(`App files copied to: ${appFiles}`);
+		log(`App files copied to: ${appFiles}`);
 
 		this.deps.fse.renameSync(path.join(appFiles, this.values.packagedExecutableName), path.join(appFiles, this.values.executableName));
-		debug(`Rename '${this.values.packagedExecutableName} to ${this.values.executableName} in: ${appFiles}`);
+		log(`Rename '${this.values.packagedExecutableName} to ${this.values.executableName} in: ${appFiles}`);
 
 		return true;
 	}
@@ -102,10 +106,10 @@ module.exports = class SnapPackager {
 		let result = null;
 
 		const snapFile = `${this.values.executableName}-${this.values.version}.snap`;
-		debug(`Snap file artifact name will be: ${snapFile}`);
+		log(`Snap file artifact name will be: ${snapFile}`);
 
 		const pathToSnapFile = path.join(this.options.makeOptions.makeDir, 'snapcraft', snapFile);
-		debug(`Snap file will be created at: ${pathToSnapFile}`);
+		log(`Snap file will be created at: ${pathToSnapFile}`);
 
 		try {
 			result = await new Promise((resolve, reject) => {
@@ -115,11 +119,11 @@ module.exports = class SnapPackager {
 					cwd: spawnSnapcraftInDirectory
 				});
 
-				debug(`Snapcraft is now running with: snapcraft snap --output ${snapFile}`);
-				debug(`Snapcraft has been spawned within the directory: ${spawnSnapcraftInDirectory}`);
+				log(`Snapcraft is now running with: snapcraft snap --output ${snapFile}`);
+				log(`Snapcraft has been spawned within the directory: ${spawnSnapcraftInDirectory}`);
 
 				snapcraft.on('close', code => {
-					debug(`Snapcraft has finished running, with a status code of: ${code}`);
+					log(`Snapcraft has finished running, with a status code of: ${code}`);
 
 					if (code === 0) {
 						resolve(code);
@@ -130,24 +134,24 @@ module.exports = class SnapPackager {
 				});
 
 				snapcraft.on('error', error => {
-					debug(`Snapcraft has encountered an error and is aborting: ${error}`);
+					log(`Snapcraft has encountered an error and is aborting: ${error}`);
 
 					reject(error);
 				});
 
 				snapcraft.stdout.on('data', data => {
-					debug(`Snapcraft stdout: ${data.toString()}`);
+					log(`Snapcraft stdout: ${data.toString()}`);
 				});
 			});
 		} catch (error) {
-			debug(error.message);
+			log(error.message);
 
 			throw error;
 		}
 
-		debug(`Snapcraft finished with status code: ${result}`);
-		debug(`Snapcraft file generated to: ${pathToSnapFile}`);
+		log(`Snapcraft finished with status code: ${result}`);
+		log(`Snapcraft file generated to: ${pathToSnapFile}`);
 
 		return pathToSnapFile;
 	}
-};
+}

@@ -1,5 +1,5 @@
-const path = require('path');
-const LinuxApp = require('electron-packager/src/linux').App;
+import path from 'node:path';
+import LinuxApp from 'electron-packager/src/linux.js';
 
 class SnapValues {
 	constructor(options) {
@@ -24,7 +24,7 @@ class SnapValues {
 	}
 
 	get packagedExecutableName() {
-		const linuxApp = new LinuxApp({
+		const linuxApp = new LinuxApp.App({
 			name: this.makeOptions.appName
 		});
 
@@ -95,7 +95,8 @@ class SnapValues {
 		this.values.stagePackages = this.makerOptions.stagePackages || SnapValues.defaultStagePackages;
 
 		if (this.values.stagePackages.includes('default')) {
-			this.values.stagePackages = this.values.stagePackages.filter(i => i !== 'default').concat(SnapValues.defaultStagePackages);
+			this.values.stagePackages = [...this.values.stagePackages.filter(i => i !== 'default'),
+				...SnapValues.defaultStagePackages];
 		}
 
 		return this.values.stagePackages;
@@ -105,7 +106,8 @@ class SnapValues {
 		this.values.plugs = this.makerOptions.plugs || SnapValues.defaultPlugs;
 
 		if (this.values.plugs.includes('default')) {
-			this.values.plugs = this.values.plugs.filter(i => i !== 'default').concat(SnapValues.defaultPlugs);
+			this.values.plugs = [...this.values.plugs.filter(i => i !== 'default'),
+				...SnapValues.defaultPlugs];
 		}
 
 		return this.values.plugs;
@@ -147,4 +149,4 @@ SnapValues.defaultPlugs = [
 	'x11'
 ];
 
-module.exports = SnapValues;
+export default SnapValues;
