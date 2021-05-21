@@ -503,34 +503,34 @@
   dependencies:
     arrify "^1.0.1"
 
-"@electron-forge/async-ora@6.0.0-beta.54":
-  version "6.0.0-beta.54"
-  resolved "https://registry.yarnpkg.com/@electron-forge/async-ora/-/async-ora-6.0.0-beta.54.tgz#2bb9bec05486106b5fd6c45b9f392f1b4b5841a3"
-  integrity sha512-OCoHds0BIXaB54HgKw6pjlHC1cnaTcfJfVVkPSJl1GLC3VShZ5bETJfsitwbiP2kbfKLUQFayW27sqbwnwQR2w==
+"@electron-forge/async-ora@6.0.0-beta.55":
+  version "6.0.0-beta.55"
+  resolved "https://registry.yarnpkg.com/@electron-forge/async-ora/-/async-ora-6.0.0-beta.55.tgz#9d6240f704e826fa284c76a36099062f29870049"
+  integrity sha512-B5td9OP13wn5zQO6mcJp99dsckKA33qsCy8uyoBeaS5pRlX3DPzJjoP+rlmAgHDeEBbay/PzbgZjeB1bCJpAQA==
   dependencies:
     colors "^1.4.0"
-    debug "^4.1.0"
+    debug "^4.3.1"
     log-symbols "^4.0.0"
     ora "^5.0.0"
     pretty-ms "^7.0.0"
 
-"@electron-forge/maker-base@^6.0.0-beta.54":
-  version "6.0.0-beta.54"
-  resolved "https://registry.yarnpkg.com/@electron-forge/maker-base/-/maker-base-6.0.0-beta.54.tgz#f5679d6c472d9c3ada4eb0b210ea28067f95f568"
-  integrity sha512-4y0y15ieb1EOR5mibtFM9tZzaShbAO0RZu6ARLCpD5BgKuJBzXRPfWvEmY6WeDNzoWTJ+mQdYikLAeOL2E9mew==
+"@electron-forge/maker-base@^6.0.0-beta.55":
+  version "6.0.0-beta.55"
+  resolved "https://registry.yarnpkg.com/@electron-forge/maker-base/-/maker-base-6.0.0-beta.55.tgz#344784dd26e77c7ff61aa6fdd093cf32e2d18bbc"
+  integrity sha512-fsRj+RAkOtAZNm2y6e7HKF/FQEaIbujqaTtfcKVL401FMCfb8+Y/LuXDnulMTenLfXDtpMvgMiDGMKAnxa8pUQ==
   dependencies:
-    "@electron-forge/shared-types" "6.0.0-beta.54"
+    "@electron-forge/shared-types" "6.0.0-beta.55"
     fs-extra "^9.0.1"
     which "^2.0.2"
 
-"@electron-forge/shared-types@6.0.0-beta.54":
-  version "6.0.0-beta.54"
-  resolved "https://registry.yarnpkg.com/@electron-forge/shared-types/-/shared-types-6.0.0-beta.54.tgz#61ceb5e0754314035dc934e86eb21b29f893ac19"
-  integrity sha512-6CzWKFR17rxxeIqm1w5ZyT9uTAHSVAjhqL8c+TmizF2703GyCEusUkjP2UXt/tZNY4MJlukZoJM66Bct6oZJ+w==
+"@electron-forge/shared-types@6.0.0-beta.55":
+  version "6.0.0-beta.55"
+  resolved "https://registry.yarnpkg.com/@electron-forge/shared-types/-/shared-types-6.0.0-beta.55.tgz#9dfc78d81a20bf95f66d393f723b18767896465a"
+  integrity sha512-tPXnt2Eh1gW8wlk0ieN/IYGgKFPG6LEUUsTh+zPmnsD4Md9M6Tv9nNiUitM5xvVhNZkezJB/Q0K7f9t+6J4sdw==
   dependencies:
-    "@electron-forge/async-ora" "6.0.0-beta.54"
+    "@electron-forge/async-ora" "6.0.0-beta.55"
     electron-packager "^15.0.0"
-    electron-rebuild "^2.0.3"
+    electron-rebuild "^2.3.2"
     ora "^5.0.0"
 
 "@electron/get@^1.6.0":
@@ -580,10 +580,10 @@
   resolved "https://registry.yarnpkg.com/@istanbuljs/schema/-/schema-0.1.2.tgz#26520bf09abe4a5644cd5414e37125a8954241dd"
   integrity sha512-tsAQNx32a8CoFhjhijUIhI4kccIAgmGhy8LZMZgGfmXcpMbPRUqn5LWmgRttILi6yeGmBJd2xsPkFMs0PzgPCw==
 
-"@malept/cross-spawn-promise@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@malept/cross-spawn-promise/-/cross-spawn-promise-1.1.0.tgz#258fde4098f5004a56db67c35f33033af64810f6"
-  integrity sha512-GeIK5rfU1Yd7BZJQPTGZMMmcZy5nhRToPXZcjaDwQDRSewdhp648GT2E4dh+L7+Io7AOW6WQ+GR44QSzja4qxg==
+"@malept/cross-spawn-promise@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@malept/cross-spawn-promise/-/cross-spawn-promise-1.1.1.tgz#504af200af6b98e198bce768bc1730c6936ae01d"
+  integrity sha512-RTBGWL5FWQcg9orDOCcp4LvItNzUPcyEU9bwaeJX0rJ1IQxzucC48Y0/sQLp/g6t99IQgAlGIaesJS+gTn7tVQ==
   dependencies:
     cross-spawn "^7.0.1"
 
@@ -2275,12 +2275,12 @@ electron-packager@^15.2.0:
     semver "^7.1.3"
     yargs-parser "^20.0.0"
 
-electron-rebuild@^2.0.3:
-  version "2.3.4"
-  resolved "https://registry.yarnpkg.com/electron-rebuild/-/electron-rebuild-2.3.4.tgz#59d49b37d5cc690aa60500aa5e5ecd168cbb5ba2"
-  integrity sha512-EHr1bkqXTN/jQJuh2/IunF9QGa9yOgpE9KdQ9A7VHshd7ycWvoXjWzaXaimfa1nu1l7vKqLLu7N2COe3Jn9NuA==
+electron-rebuild@^2.3.2:
+  version "2.3.5"
+  resolved "https://registry.yarnpkg.com/electron-rebuild/-/electron-rebuild-2.3.5.tgz#10dc38d1ffe1515ba2eef8b8be8e973ad1e1d597"
+  integrity sha512-1sQ1DRtQGpglFhc3urD4olMJzt/wxlbnAAsf+WY2xHf5c50ZovivZvCXSpVgTOP9f4TzOMvelWyspyfhxQKHzQ==
   dependencies:
-    "@malept/cross-spawn-promise" "^1.1.0"
+    "@malept/cross-spawn-promise" "^1.1.1"
     colors "^1.3.3"
     debug "^4.1.1"
     detect-libc "^1.0.3"
