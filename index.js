@@ -1,11 +1,11 @@
-import path from 'node:path';
-import {spawn} from 'node:child_process';
+const path = require('path');
+const {spawn} = require('child_process');
 
-import MakerBase from '@electron-forge/maker-base';
-import fse from 'fs-extra';
-import debug from 'debug';
+const MakerBase = require('@electron-forge/maker-base');
+const fse = require('fs-extra');
+const debug = require('debug');
 
-import SnapPackager from './snap-packager.js';
+const SnapPackager = require('./snap-packager.js');
 
 const log = debug('electron-forge-maker-snap:maker-snap');
 

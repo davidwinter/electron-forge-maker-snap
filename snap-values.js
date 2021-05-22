@@ -1,5 +1,5 @@
-import path from 'node:path';
-import LinuxApp from 'electron-packager/src/linux.js';
+const path = require('path');
+const LinuxApp = require('electron-packager/src/linux.js');
 
 class SnapValues {
 	constructor(options) {
@@ -150,4 +150,4 @@ SnapValues.defaultPlugs = [
 	'x11'
 ];
 
-export default SnapValues;
+module.exports = SnapValues;

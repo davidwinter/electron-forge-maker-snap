@@ -1,6 +1,6 @@
-import test from 'ava';
+const test = require('ava');
 
-import SnapValues from './snap-values.js';
+const SnapValues = require('./snap-values.js');
 
 const makeOptions = {
 	/**

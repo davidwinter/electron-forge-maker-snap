@@ -1,17 +1,16 @@
-import path from 'node:path';
-import {fileURLToPath} from 'node:url';
+const path = require('path');
 
-import ini from 'ini';
-import yaml from 'js-yaml';
-import debug from 'debug';
+const ini = require('ini');
+const yaml = require('js-yaml');
+const debug = require('debug');
 
-import SnapValues from './snap-values.js';
+const SnapValues = require('./snap-values.js');
 
 const log = debug('electron-forge-maker-snap:snap-packager');
 
 log.log = console.log.bind(console);
 
-export default class SnapPackager {
+module.exports = class SnapPackager {
 	constructor(options) {
 		this.options = options;
 		this.deps = options.dependencies;
@@ -37,7 +36,7 @@ export default class SnapPackager {
 	}
 
 	generateSnapcraftYAML() {
-		const doc = yaml.load(this.deps.fse.readFileSync(path.join(path.dirname(fileURLToPath(import.meta.url)), 'snapcraft.template.yaml'), 'utf8'));
+		const doc = yaml.load(this.deps.fse.readFileSync(path.join(__dirname, 'snapcraft.template.yaml'), 'utf8'));
 
 		doc.name = this.values.executableName;
 		doc.title = this.values.applicationName;
@@ -154,4 +153,4 @@ export default class SnapPackager {
 
 		return pathToSnapFile;
 	}
-}
+};

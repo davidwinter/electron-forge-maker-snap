@@ -1,16 +1,16 @@
-import {spawn} from 'node:child_process';
-import path from 'node:path';
-import EventEmitter from 'node:events';
+const {spawn} = require('child_process');
+const path = require('path');
+const EventEmitter = require('events');
 
-import test from 'ava';
-import sinon from 'sinon';
+const test = require('ava');
+const sinon = require('sinon');
 
-import yaml from 'js-yaml';
-import fse from 'fs-extra';
-import packager from 'electron-packager';
+const yaml = require('js-yaml');
+const fse = require('fs-extra');
+const packager = require('electron-packager');
 
-import SnapPackager from './snap-packager.js';
-import SnapValues from './snap-values.js';
+const SnapPackager = require('./snap-packager.js');
+const SnapValues = require('./snap-values.js');
 
 const makeOptions = {
 	appName: 'Nimble Notes v3!',
