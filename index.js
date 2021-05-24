@@ -11,7 +11,7 @@ const log = debug('electron-forge-maker-snap:maker-snap');
 
 log.log = console.log.bind(console);
 
-export default class MakerSnap extends MakerBase {
+module.exports = class MakerSnap extends MakerBase {
 	constructor(configFetcher, providedPlatforms) {
 		super(configFetcher, providedPlatforms);
 
@@ -59,4 +59,4 @@ export default class MakerSnap extends MakerBase {
 		log(`Finishing snap maker, passing back to electron-forge with: ${finalSnapLocation}`);
 		return [finalSnapLocation];
 	}
-}
+};
