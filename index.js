@@ -1,7 +1,7 @@
 const path = require('path');
 const {spawn} = require('child_process');
 
-const MakerBase = require('@electron-forge/maker-base');
+const MakerBase = require('@electron-forge/maker-base').default;
 const fse = require('fs-extra');
 const debug = require('debug');
 
