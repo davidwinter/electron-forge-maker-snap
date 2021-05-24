@@ -151,7 +151,7 @@ test('will throw error if snapcraft finishes with non-zero exit code', t => {
 		}
 	});
 
-	const snapPromise = pkg.createSnapPackage().catch(error => { // eslint-disable-line promise/prefer-await-to-then
+	const snapPromise = pkg.createSnapPackage().catch(error => {
 		t.is(error.message, 'Snapcraft exited with a non-zero status code of: 120');
 	});
 
@@ -175,7 +175,7 @@ test('will throw error if snapcraft process errors', t => {
 		}
 	});
 
-	const snapPromise = pkg.createSnapPackage().catch(error => { // eslint-disable-line promise/prefer-await-to-then
+	const snapPromise = pkg.createSnapPackage().catch(error => {
 		t.is(error.message, 'Snapcraft process error');
 	});
 
