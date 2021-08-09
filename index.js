@@ -53,7 +53,7 @@ module.exports = class MakerSnap extends MakerBase {
 		log(`Snap file moved to: ${finalSnapLocation}`);
 
 		const snapcraftDirectory = path.dirname(snapFileLocation);
-		fse.rmdirSync(snapcraftDirectory, {recursive: true});
+		fse.rmSync(snapcraftDirectory, {recursive: true});
 		log(`Tidy up; snapcraft files deleted from: ${snapcraftDirectory}`);
 
 		log(`Finishing snap maker, passing back to electron-forge with: ${finalSnapLocation}`);
