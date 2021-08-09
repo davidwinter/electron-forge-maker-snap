@@ -58,7 +58,7 @@
 		"@electron-forge/maker-base": "^6.0.0-beta.57",
 		"debug": "^4.3.2",
 		"electron-packager": "^15.2.0",
-		"fs-extra": "^9.1.0",
+		"fs-extra": "^10.0.0",
 		"ini": "^2.0.0",
 		"js-yaml": "^4.1.0"
 	},
