@@ -48,12 +48,18 @@ const dependencies = {
 	spawn
 };
 
+const testArtifactsPath = './test/artifacts';
+
 test.beforeEach(() => {
-	fse.rmdirSync('./test/artifacts', {recursive: true, force: true});
+	if (fse.existsSync(testArtifactsPath)) {
+		fse.rmdirSync(testArtifactsPath, {recursive: true});
+	}
 });
 
 test.afterEach(() => {
-	fse.rmdirSync('./test/artifacts', {recursive: true, force: true});
+	if (fse.existsSync(testArtifactsPath)) {
+		fse.rmdirSync(testArtifactsPath, {recursive: true});
+	}
 });
 
 test('generation of desktop file', t => {
