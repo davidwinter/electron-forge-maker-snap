@@ -70,7 +70,7 @@ module.exports = class SnapPackager {
 		const destDir = path.join(this.options.makeOptions.makeDir, 'snapcraft', 'snap');
 
 		if (this.deps.fse.existsSync(destDir)) {
-			this.deps.fse.rmSync(destDir, {recursive: true});
+			this.deps.fse.rmdirSync(destDir, {recursive: true});
 		}
 
 		this.deps.fse.mkdirSync(path.join(destDir, 'gui'), {recursive: true});

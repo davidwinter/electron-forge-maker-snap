@@ -49,11 +49,11 @@ const dependencies = {
 };
 
 test.beforeEach(() => {
-	fse.rmSync('./test/artifacts', {recursive: true, force: true});
+	fse.rmdirSync('./test/artifacts', {recursive: true, force: true});
 });
 
 test.afterEach(() => {
-	fse.rmSync('./test/artifacts', {recursive: true, force: true});
+	fse.rmdirSync('./test/artifacts', {recursive: true, force: true});
 });
 
 test('generation of desktop file', t => {
@@ -133,7 +133,7 @@ test('creation of snap files will remove destination path if it exists', t => {
 
 	pkg.createSnapcraftFiles();
 
-	t.true(fseStub.rmSync.calledOnce);
+	t.true(fseStub.rmdirSync.calledOnce);
 });
 
 test('will throw error if snapcraft finishes with non-zero exit code', t => {
