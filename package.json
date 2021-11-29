@@ -56,7 +56,7 @@
 	},
 	"dependencies": {
 		"@electron-forge/maker-base": "^6.0.0-beta.61",
-		"debug": "^4.3.2",
+		"debug": "^4.3.3",
 		"electron-packager": "^15.4.0",
 		"fs-extra": "^10.0.0",
 		"ini": "^2.0.0",
